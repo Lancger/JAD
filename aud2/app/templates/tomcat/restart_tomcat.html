@@ -1,0 +1,210 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}发起重启{% endblock %}
+
+{% block content %}
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">项目管理</a>
+							</li>
+							<li class="active">Tomcat操作历史</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+    <div class="page-content">
+    <div class="page-header">
+        <h1>
+        Tomcat操作历史
+        <small>
+        </h1>
+    </div>
+    <h6>
+
+<div class="table-header">
+	最近20条操作记录
+</div>
+<div class="table-responsive">
+    <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+    <div class="row">
+     <div class="col-sm-6">
+         <div id="sample-table-2_length" class="dataTables_length">
+             <p><button class="btn btn-sm btn-success" onclick="javascript:top.location='/tomcat/addrestart';">
+                 <i class="fa fa-upload"></i>
+                        发起重启</button></p>
+         </div>
+     </div>
+     <div class="col-sm-6">
+         <div id="nav-search" class="nav-search">
+        <form class="form-search" method='post'>
+        <span class="input-icon">
+            {{ form.s_content(id="nav-search-input", class_="nav-search-input", type="text", placeholder="搜索项目") }}
+        <i class="icon-search nav-search-icon"></i>
+            {{form.csrf_token}}
+        </span>
+        </form>
+        </div>
+     </div>
+
+    </div>
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+           <caption></caption>
+           <thead>
+               <tr>
+                    <th>重启批次/主题</th>
+                    <th>发起人</th>
+                    <th>审批人</th>
+                    <th>创建时间</th>
+                    <th>完成时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+           </thead>
+
+          <tbody>
+              {% for R in object_list %}
+              <tr>
+                  <td><p><a href="{{ url_for('tomcat.restartgo', batch_no = R.batch_no)}}">{{R.batch_no}}</a></p>
+                    {{R.subject}}
+                  </td>
+                  <td>{{ R.launcher }}</td>
+                  <td>{{ R.auditor }}</td>
+                  <td>{{R.create_time}}</td>
+                  <td>{{R.finish_time}}</td>
+
+
+                  {% if R.status in (1,5,6) %}
+                  <td><span class="label label-danger"><i class="icon-warning-sign bigger-120"></i>{{TOMCAT_RESTART_STATUS[R.status]}}</span></td>
+                  {% elif R.status == 4 %}
+                  <td><span class="label label-success"><i class="icon-ok"></i>{{TOMCAT_RESTART_STATUS[R.status]}}</span></td>
+                  {% else %}
+                  <td><span class="label label-purple">{{TOMCAT_RESTART_STATUS[R.status]}}...</span></td>
+                  {% endif%}
+
+                  {% if  R.status == 2 %}
+                      <td><a href="{{ url_for('tomcat.dorestart', batch_no = R.batch_no)}}" class="btn btn-xs btn-success">
+                                                        <i class="fa fa-undo"></i>
+                                                        <span>重启</span>
+                                                        </a></td>
+                      {% else %}
+                      <td></td>
+                  {% endif%}
+
+              </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+
+        {% if pagination %}
+            <tr>
+                <div class="dataTables_paginate paging_bootstrap">
+                {{ macros.pagination_widget(pagination, '.restart') }}</div>
+            </tr>
+    {% endif %}
+
+    </div>
+    </h6>
+</div>
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<div class="modal fade" id="tasklog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+												<div class="table-header">
+													<button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+														<span class="white">×</span>
+													</button>
+													任务执行日志(完整)
+												</div>
+											</div>
+            <h7>
+            <!-- 此处id="return_data"可让ajax改写该div的内容，ajax会把获取的数据填充到此div -->
+            <div class="modal-body" id="return_tasklog_data">
+            </div>
+                </h7>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="TomcatLog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+												<div class="table-header">
+													<button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+														<span class="white">×</span>
+													</button>
+													Tomcat启动日志(最后100行)
+												</div>
+											</div>
+            <h7>
+            <!-- 此处id="return_data"可让ajax改写该div的内容，ajax会把获取的数据填充到此div -->
+            <div class="modal-body" id="return_tomcatlog_data">
+            </div>
+                </h7>
+            <div class="modal-footer">
+                <a class="btn btn-primary" id="task_no" href="#">下载完整日志</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".ajax_tasklog_action").click(function(){                      // class="ajax_action"的链接被点击时触发操作
+        var item=$(this).attr("value");                      // 获取值
+        $.ajax({
+            url: "{{url_for('deploy.tasklog')}}/?task_no=" + item,    // 把值通过GET请求提交给后台
+            datatype: 'html',
+            async: false,
+            success: function(tasklog_data){
+                $("#return_tasklog_data").html(tasklog_data);                // 改写id=return_data的div内容
+            }, error: function(){
+                alert("获取数据失败");
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(".ajax_tomcatlog_action").click(function(){                      // class="ajax_action"的链接被点击时触发操作
+        var item=$(this).attr("value");                      // 获取值
+        $.ajax({
+            url: "{{url_for('deploy.tomcatlog')}}/?task_no=" + item,    // 把值通过GET请求提交给后台
+            datatype: 'html',
+            async: false,
+            success: function(tomcatlog_data){
+                $("#return_tomcatlog_data").html(tomcatlog_data);                // 改写id=return_data的div内容
+                $("#task_no").attr('href',"/tomcatlogs/" + item + ".log")
+            }, error: function(){
+                alert("获取数据失败");
+            }
+        });
+    });
+</script>
+{% endblock %}

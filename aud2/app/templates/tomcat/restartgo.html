@@ -1,0 +1,631 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}重启详情{% endblock %}
+
+{% block content %}
+
+
+<div class="main-content">
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('breadcrumbs', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="/">Home</a>
+        </li>
+
+        <li>
+            <a href="#">项目重启</a>
+        </li>
+        <li class="active">重启详情</li>
+    </ul>
+    <!-- .breadcrumb -->
+
+</div>
+
+<div class="page-content">
+<div class="row">
+<div class="col-xs-12">
+
+<div class="page-content">
+<div class="page-header">
+    <h1>
+        重启详情
+        <small>
+    </h1>
+</div>
+
+<div data-target="#step-container" class="row-fluid" id="fuelux-wizard">
+    <ul class="wizard-steps">
+        <li class="complete" data-target="#step1">
+            <span class="step">1</span>
+            <span class="title">发起重启</span>
+        </li>
+
+        <li class="active" data-target="#step2">
+            <span class="step">2</span>
+            <span class="title">审批</span>
+        </li>
+
+
+        <li
+        {% if object.status >= 2 %} class="active" {% endif %} data-target="#step3">
+        <span class="step">3</span>
+        <span class="title">重启</span>
+        </li>
+
+        <li
+        {% if object.status >= 4 %} class="active" {% endif %} data-target="#step4">
+        <span class="step">4</span>
+        <span class="title">完成</span>
+        </li>
+    </ul>
+</div>
+<hr>
+
+<div class="space-12"></div>
+{% for message in get_flashed_messages() %}
+
+
+    <div>
+            <div class="alert alert-danger">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-times"></i>
+                    异常：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+        </div>
+
+            {% endfor %}
+<h6>
+<div class="col-sm-12">
+<div class="col-xs-12 col-sm-6">
+    <div class="profile-user-info profile-user-info-striped">
+        <div class="profile-info-row">
+            <div class="profile-info-name"> 主题</div>
+
+            <div class="profile-info-value">
+                <span>{{ object.subject }}</span>
+            </div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name"> 重启批次</div>
+
+            <div class="profile-info-value">
+                <span>{{ object.batch_no }}</span>
+            </div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name"> 重启项目</div>
+
+            <div class="profile-info-value">
+                <span><a href="{{ url_for('self.appdetail', appid = object.app_id)}}">{{ object.app_name }}</a></span>
+            </div>
+        </div>
+
+        <div class="profile-info-row">
+            <div class="profile-info-name"> 重启业务</div>
+
+            <div class="profile-info-value">
+                <span>{{  BUSSINESS_TYPE[object.business_id] }}</span>
+            </div>
+        </div>
+
+
+        <div class="profile-info-row">
+            <div class="profile-info-name"> 状态</div>
+
+            <div class="profile-info-value">
+                {% if object.status in (1,5,6) %}
+                <span class="label label-danger"><i class="icon-warning-sign bigger-120"></i>{{TOMCAT_RESTART_STATUS[object.status]}}</span>
+                {% elif object.status == 4 %}
+                <span class="label label-success"><i class="icon-ok"></i>{{TOMCAT_RESTART_STATUS[object.status]}}</span>
+                {% else %}
+                <span class="label label-purple">{{TOMCAT_RESTART_STATUS[object.status]}}...</span>
+                {% endif%}
+            </div>
+        </div>
+
+        <div class="profile-info-row">
+            <div class="profile-info-name"> 发起人</div>
+
+            <div class="profile-info-value">
+                <span><a href="{{ url_for('deploy.deploy_his', account = object.launcher)}}"> {{ object.username }}</a></span>
+            </div>
+        </div>
+        {% if object.auditor %}
+        <div class="profile-info-row">
+            <div class="profile-info-name"> 审批人</div>
+
+            <div class="profile-info-value">
+                <span><a class="user" href="#"> {{ manager_dict[object.auditor] }}</a></span>
+            </div>
+        </div>
+        {%endif%}
+        {% if object.operator %}
+        <div class="profile-info-row">
+            <div class="profile-info-name"> 操作人</div>
+
+            <div class="profile-info-value">
+                <span><a class="user" href="#"> {{ manager_dict[object.operator] }}</a></span>
+            </div>
+        </div>
+        {% endif %}
+
+
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-6">
+    <div class="tabbable">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#action" data-toggle="tab">
+                    动作
+                </a>
+            </li>
+
+            <li class="">
+                <a href="#comment" data-toggle="tab">
+                    备注
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="action">
+                <div class="widget-box transparent">
+
+
+                    <div class="widget-body">
+                        <div class="widget-main padding-12">
+                            <div id="profile-feed-2" class="profile-feed">
+                                {%for action1 in ac_list %}
+                                <div class="profile-activity clearfix">
+                                    <div>
+
+                                        <a class="user" href="#"> {{ action1.username }} </a>
+                                        进行了操作 - {{ action1.create_time }}
+                                        <div class="space-6"></div>
+
+                                        <div>
+                                            {{ USER_ACTION_CONVERT[action1.action] }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% endfor %}
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="comment">
+                <div class="widget-box transparent">
+
+
+                    <div class="widget-body">
+                        <div class="widget-main padding-12">
+                            <div id="profile-feed-1" class="profile-feed">
+                                {%for remark in remark_list %}
+                                <div class="profile-activity clearfix">
+                                    <div>
+
+                                        <a class="user" href="#"> {{ remark.username }} </a>
+                                        添加了备注 - {{ remark.create_time }}
+                                        <div class="space-6"></div>
+
+                                        <div>
+                                            {{ remark.content }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% endfor %}
+
+
+                            </div>
+                            {% if object.status <= 3 or (g.user.is_sa() or g.user.is_admin()) %}
+                            <div>
+                                <form action="{{ url_for('deploy.batch_remark', batch_id=object.id ) }}" method="post"
+                                      name="batch_remark">
+                                    <input name="remark_content" value="" class="col-xs-10 col-sm-9">
+                                    <button class="btn btn-minier btn-success" type="button" onClick="submit()">
+                                        添加备注
+                                    </button>
+                                </form>
+
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-xs-12 col-sm-12">
+
+
+    <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+
+                {% if object.status == 0 %}
+                <a href="{{ url_for('tomcat.approve_success', batch_no = object.batch_no)}}" class="btn btn-success">
+                    <i class="icon-ok"></i>
+                    <span>审核-批准</span>
+                </a>
+                <a href="{{ url_for('tomcat.approve_notgo', batch_no = object.batch_no)}}" class="btn btn-danger">
+                    <i class="fa fa-times"></i>
+                    <span>审核-驳回</span>
+                </a>
+                {% endif %}
+
+
+                {% if object.status == 2 %}
+                <a href="{{ url_for('tomcat.dorestart', batch_no = object.batch_no)}}" class="btn btn-success">
+                    <i class="fa fa-upload"></i>
+                    <span>重启</span>
+                </a>
+
+
+                <a href="{{ url_for('tomcat.notgo', batch_no = object.batch_no)}}" class="btn btn-danger">
+                    <i class="fa fa-times"></i>
+                    <span>取消重启</span>
+                </a>
+
+                {% endif %}
+
+            <a href="/tomcat/restart" class="btn btn-pink">
+                <i class="icon-arrow-left"></i>
+                <span>返回上页</span>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+</div>
+</h6>
+
+<div class="space-12"></div>
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<div class="col-sm-12">
+<div class="space-12"></div>
+{% if object.status >= 3 %}
+<div class="space-12"></div>
+<hr>
+<div class="row">
+    <div class="page-content">
+        <div class="page-header">
+            <h1>应用服务器
+                <small>
+            </h1>
+        </div>
+        <div class="row">
+            <h6>
+                <div class="table-header">
+                    服务器重启进度
+                </div>
+
+                <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+
+
+                    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                        <caption></caption>
+                        <thead>
+                        <tr>
+                            <th>任务号</th>
+                            <th>应用服务器</th>
+                            <th>进度</th>
+                            <th>创建时间</th>
+                            <th>完成时间</th>
+                            <th>详情</th>
+                            <th>Tomcat状态</th>
+                            <th>更多信息</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for R in node_list %}
+                        <tr>
+                            {% if R.status > 1 %}
+                            <td><a class="ajax_tasklog_action" href="#" value="{{ R.task_no }}" data-toggle="modal"
+                                   data-target="#tasklog">{{ R.task_no }}</a></td>
+                            {% else %}
+                            <td>{{ R.task_no }}</td>
+                            {% endif %}
+                            <td>{{ R.node_ip }}</td>
+                            {% if R.status == 2 %}
+                            <td><span class="label label-danger"><i class="icon-warning-sign bigger-120"></i>{{ RESTART_NODETASK_STATUS[R.status] }}</span>
+                            </td>
+                            {% elif R.status == 3 %}
+                            <td><span class="label label-success"><i class="icon-ok"></i>{{ RESTART_NODETASK_STATUS[R.status] }}</span>
+                            </td>
+                            {% else %}
+                            <td><span class="label label-purple">{{ RESTART_NODETASK_STATUS[R.status] }}...</span></td>
+                            {% endif%}
+                            <td>{{ R.create_time }}</td>
+                            <td>{{ R.finish_time }}</td>
+
+                            {% if R.detail %}
+                            <td>{% for item in R.detail.split('|') %}
+                                <p>{{item}}</p>
+                                {% endfor %}
+                            </td>
+                            {% else %}
+                            <td>{{ R.detail }}</td>
+                            {% endif %}
+
+                            <td>{{ R.conclusion }}</td>
+
+                            <td><a class="ajax_tomcatlog_action" href="#" value="{{ R.task_no }}" data-toggle="modal"
+                                       data-target="#TomcatLog">Tomcat启动日志</a></td>
+
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </h6>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="tasklog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <div class="table-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <span class="white">×</span>
+                    </button>
+                    任务执行日志(完整)
+                </div>
+            </div>
+            <h7>
+                <!-- 此处id="return_data"可让ajax改写该div的内容，ajax会把获取的数据填充到此div -->
+                <div class="modal-body" id="return_tasklog_data">
+                </div>
+            </h7>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="TomcatLog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <div class="table-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <span class="white">×</span>
+                    </button>
+                    Tomcat启动日志(最后100行)
+                </div>
+            </div>
+            <h7>
+                <!-- 此处id="return_data"可让ajax改写该div的内容，ajax会把获取的数据填充到此div -->
+                <div class="modal-body" id="return_tomcatlog_data">
+                </div>
+            </h7>
+            <div class="modal-footer">
+                <a class="btn btn-primary" id="task_no" href="#">下载完整日志</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(".ajax_tasklog_action").click(function () {                      // class="ajax_action"的链接被点击时触发操作
+        var item = $(this).attr("value");                      // 获取值
+        $.ajax({
+            url: "{{url_for('deploy.tasklog')}}/?task_no=" + item,    // 把值通过GET请求提交给后台
+            datatype: 'html',
+            async: false,
+            success: function (tasklog_data) {
+                $("#return_tasklog_data").html(tasklog_data);                // 改写id=return_data的div内容
+            }, error: function () {
+                alert("获取数据失败");
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(".ajax_tomcatlog_action").click(function () {                      // class="ajax_action"的链接被点击时触发操作
+        var item = $(this).attr("value");                      // 获取值
+        $.ajax({
+            url: "{{url_for('deploy.tomcatlog')}}/?task_no=" + item,    // 把值通过GET请求提交给后台
+            datatype: 'html',
+            async: false,
+            success: function (tomcatlog_data) {
+                $("#return_tomcatlog_data").html(tomcatlog_data);                // 改写id=return_data的div内容
+                $("#task_no").attr('href', "/tomcatlogs/" + item + ".log")
+            }, error: function () {
+                alert("获取数据失败");
+            }
+        });
+    });
+</script>
+{% endif %}
+
+<div class="modal fade" id="updatefile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <div class="table-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <span class="white">×</span>
+                    </button>
+                    更新文件列表
+                </div>
+            </div>
+            <h7>
+                <!-- 此处id="return_data"可让ajax改写该div的内容，ajax会把获取的数据填充到此div -->
+                <div class="modal-body" id="return_updatefile_data">
+                </div>
+            </h7>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".ajax_updatefile_action").click(function () {                      // class="ajax_action"的链接被点击时触发操作
+        var item = $(this).attr("value");                      // 获取值
+        $.ajax({
+            url: "{{url_for('deploy.updatefile')}}/?batch_no=" + item,    // 把值通过GET请求提交给后台
+            datatype: 'html',
+            async: false,
+            success: function (updatefile_data) {
+                $("#return_updatefile_data").html(updatefile_data);                // 改写id=return_data的div内容
+            }, error: function () {
+                alert("获取数据失败");
+            }
+        });
+    });
+</script>
+
+<div class="modal fade" id="checkupdatefile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <div class="table-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                        <span class="white">×</span>
+                    </button>
+                    更新文件列表同步检查结果
+                </div>
+            </div>
+            <h7>
+                <!-- 此处id="return_data"可让ajax改写该div的内容，ajax会把获取的数据填充到此div -->
+                <div class="modal-body" id="return_checkupdatefile_data">
+                </div>
+            </h7>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".ajax_checkupdatefile_action").click(function () {                      // class="ajax_action"的链接被点击时触发操作
+        var item = $(this).attr("value");                      // 获取值
+        $.ajax({
+            url: "{{url_for('deploy.checkfilelist')}}/?batch_no=" + item,    // 把值通过GET请求提交给后台
+            datatype: 'html',
+            async: false,
+            success: function (checkupdatefile_data) {
+                $("#return_checkupdatefile_data").html(checkupdatefile_data);                // 改写id=return_data的div内容
+            }, error: function () {
+                alert("获取数据失败");
+            }
+        });
+    });
+</script>
+
+
+<script src="/static/js/jquery.slimscroll.min.js"></script>
+
+
+<script src="/static/js/x-editable/bootstrap-editable.min.js"></script>
+
+
+{% if object.status == 3 %}
+    <script type="text/javascript">
+        setInterval("refreshThisWindow()",10000);
+        function refreshThisWindow(){
+            window.location.reload();
+        }
+    </script>
+{% endif %}
+
+<script type="text/javascript">
+
+
+    jQuery(function ($) {
+
+        //////////////////////////////
+        $('#profile-feed-1').slimScroll({
+            height: '250px',
+            alwaysVisible: true
+        });
+
+        $('.profile-social-links > a').tooltip();
+
+        $('.easy-pie-chart.percentage').each(function () {
+            var barColor = $(this).data('color') || '#555';
+            var trackColor = '#E2E2E2';
+            var size = parseInt($(this).data('size')) || 72;
+            $(this).easyPieChart({
+                barColor: barColor,
+                trackColor: trackColor,
+                scaleColor: false,
+                lineCap: 'butt',
+                lineWidth: parseInt(size / 10),
+                animate: false,
+                size: size
+            }).css('color', barColor);
+        });
+
+        //////////////////////////////
+        $('#profile-feed-2').slimScroll({
+            height: '271px',
+            alwaysVisible: true
+        });
+
+        $('.profile-social-links > a').tooltip();
+
+        $('.easy-pie-chart.percentage').each(function () {
+            var barColor = $(this).data('color') || '#555';
+            var trackColor = '#E2E2E2';
+            var size = parseInt($(this).data('size')) || 72;
+            $(this).easyPieChart({
+                barColor: barColor,
+                trackColor: trackColor,
+                scaleColor: false,
+                lineCap: 'butt',
+                lineWidth: parseInt(size / 10),
+                animate: false,
+                size: size
+            }).css('color', barColor);
+        });
+
+
+    });
+</script>
+{% endblock %}

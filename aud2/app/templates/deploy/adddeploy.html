@@ -1,0 +1,260 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}增加应用{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">项目更新</a>
+							</li>
+							<li class="active">发起更新</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<link rel="stylesheet" href="/static/css/chosen.css" />
+
+
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        发起更新
+        <small>
+        </h1>
+    </div>
+<div data-target="#step-container" class="row-fluid" id="fuelux-wizard">
+	<ul class="wizard-steps">
+		<li class="active" data-target="#step1">
+			<span class="step">1</span>
+			<span class="title">发起更新</span>
+		</li>
+
+		<li data-target="#step2">
+			<span class="step">2</span>
+			<span class="title">审批</span>
+		</li>
+
+		<li data-target="#step3">
+			<span class="step">3</span>
+			<span class="title">更新</span>
+		</li>
+
+		<li data-target="#step4">
+			<span class="step">4</span>
+			<span class="title">完成</span>
+		</li>
+	</ul>
+</div>
+<hr>
+<div class="row">
+
+
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-times"></i>
+                    错误：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+            {% endfor %}
+
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" action="{{ url_for('deploy.adddeploy') }}" method='post' name="adddeploy">
+            {{form.hidden_tag()}}
+
+             <div class="form-group">
+                    <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 主题 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.subject(class_="col-xs-10 col-sm-8", placeholder="主题", id="form-field-9") }}
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 项目名称 </label>
+
+    			<div class="col-sm-9" style="width:8%">
+                     {{ form.app_name(class_="width-10 chosen-select", placeholder="应用名称", id="form-field-1") }}
+    			</div>
+
+                        <label for="form-field-7" class="col-sm-3 control-label no-padding-right"> 业务类型&nbsp;&nbsp;&nbsp;</label>
+                     {{ form.business_id(class_="col-xs-10 col-sm-2", placeholder="业务类型") }}
+    		</div>
+    		<div class="space-4"></div>
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 更新安排 </label>
+
+    			<div class="col-sm-9">
+                     {{ form.plan(class_="col-xs-10 col-sm-3", placeholder="更新安排", id="form-field-7") }}
+
+
+                        <label for="form-field-7" class="col-sm-3 control-label no-padding-right"> 更新方式&nbsp;&nbsp;&nbsp;</label>
+                     {{ form.type(class_="col-xs-10 col-sm-2", placeholder="更新方式", id="deploy_type") }}
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+             <div class="form-group">
+
+                 <label for="form-field-6" class="col-sm-3 control-label no-padding-right"> 更新环境 </label>
+
+                    <div class="col-sm-8">
+                     {{ form.env(class_="col-xs-10 col-sm-3", placeholder="更新环境", disabled="disabled") }}
+
+
+                        <label for="form-field-7" class="col-sm-3 control-label no-padding-right"> 重启Tomcat&nbsp;&nbsp;&nbsp;</label>
+                     {{ form.restart_tomcat(class_="col-xs-10 col-sm-3", placeholder="重启Tomcat", id="form-field-7") }}
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 审批人 </label>
+
+                    <div class="col-sm-9">
+                        {{ form.auditor(class_="col-xs-10 col-sm-6", placeholder="审批人", id="form-field-9") }}
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+
+                 <label for="form-field-6" class="col-sm-3 control-label no-padding-right"> 通知方式 </label>
+
+                    <div class="col-sm-8">
+                     {{ form.message_type(class_="col-xs-10 col-sm-3", placeholder="通知方式", id="form-field-6") }}
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 通知抄送 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.message_cc(multiple="", class_="width-50 chosen-select tag-input-style", data_placeholder="选择需要通知的人员...") }}
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group" id="update_file">
+                    <label for="form-field-5" class="col-sm-3 control-label no-padding-right"> 更新文件 </label>
+
+                    <div class="col-sm-6">
+                     {{ form.content(type="textarea", class_="autosize-transition form-control",style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 200px;")  }}
+
+                    </div>
+
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-10" class="col-sm-3 control-label no-padding-right"> 更新原因 </label>
+
+                    <div class="col-sm-6">
+                     {{ form.desc(type="textarea", class_="autosize-transition form-control",style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 100px;")  }}
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+             <!--
+             <div class="form-group">
+                    <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> 更新前执行命令 </label>
+
+                    <div class="col-sm-6">
+                     {{ form.before_command(type="textarea", class_="autosize-transition form-control",style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 50px;") }}
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-5" class="col-sm-3 control-label no-padding-right"> 更新后执行命令 </label>
+
+                    <div class="col-sm-6">
+                     {{ form.after_command(type="textarea", class_="autosize-transition form-control",style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 50px;") }}
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+            -->
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> 提交</button>
+                        <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                        <a href="javascript:history.go(-1);" class="btn">
+                                                    <i class="icon-arrow-left"></i>
+                                                    <span>返回上页</span>
+                                                    </a>
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/static/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+        });
+
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+            $(".chosen-choices li input").addClass("height-auto");
+        });
+
+        $(document).ready(function () {
+            $("#deploy_type").change(function () {
+                $("#update_file").toggle();
+            });
+        });
+        
+//        $(document).ready(function ($){
+            //$(".chosen-select").attr("style","width: 120px");
+ //           $("#form_field_1_chosen").css("width", "22%");
+   //     });
+       
+    </script>
+
+{% endblock %}

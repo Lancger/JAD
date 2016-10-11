@@ -1,0 +1,139 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}用户列表{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">用户和权限</a>
+            </li>
+            <li class="active">用户管理</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                添加新用户
+                <small>
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <form role="form" class="form-horizontal" method='post'>
+                    {{form.hidden_tag()}}
+
+                    <div class="form-group">
+                        <label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 真实姓名 </label>
+
+                        <div class="col-sm-9">
+                            {{ form.name(type="text", class_="col-xs-10 col-sm-5", placeholder="真实姓名",
+                            id="form-field-1") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.name %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label for="form-field-2" class="col-sm-3 control-label no-padding-right"> 帐号 </label>
+
+                        <div class="col-sm-9">
+                            {{ form.account(type="text", class_="col-xs-10 col-sm-5", placeholder="帐号",
+                            id="form-field-2") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.account %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label for="form-field-3" class="col-sm-3 control-label no-padding-right"> 手机号码 </label>
+
+                        <div class="col-sm-9">
+                            {{ form.mobile(type="text", class_="col-xs-10 col-sm-5", placeholder="手机号码",
+                            id="form-field-3") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.mobile %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> 选择部门 </label>
+
+                        <div class="col-sm-9">
+                            {{ form.depart(type="text", class_="col-xs-10 col-sm-5",
+                            placeholder="中网彩\\技术中心\\应用开发综合部\\开发一部\\服务开发组", id="form-field-4") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.depart %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label for="form-field-5" class="col-sm-3 control-label no-padding-right"> 选择添加权限组(多选) </label>
+
+                        <div class="col-sm-9">
+                            {{ form.perm_group(type="text", class_="col-xs-10 col-sm-5",
+                            placeholder="中网彩\\技术中心\\应用开发综合部\\开发一部\\服务开发组", id="form-field-5") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.perm_group %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+
+
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" value="添加" class="btn btn-info"/>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+
+        {% endblock %}

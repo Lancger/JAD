@@ -1,0 +1,204 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}增加应用{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="/ldapuser">应用管理</a>
+							</li>
+							<li class="active">添加服务器</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        添加服务器
+        <small>
+        </h1>
+    </div>
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" action="addserver" method='post' name="addserver">
+            {{form.hidden_tag()}}
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 服务器名称 </label>
+
+    			<div class="col-sm-9">
+                 {{ form.server_name(type="text", class_="col-xs-10 col-sm-5", placeholder="服务器名称", id="form-field-1") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.server_name %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+         <div class="form-group">
+                    <label for="form-field-2" class="col-sm-3 control-label no-padding-right"> 状态 </label>
+
+                    <div class="col-sm-8">
+                     {{ form.status(type="text", class_="col-xs-10 col-sm-3", placeholder="状态", id="form-field-2") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.status %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+
+                        <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> 服务器类型&nbsp;&nbsp;&nbsp; </label>
+
+
+                     {{ form.type(type="text", class_="col-xs-10 col-sm-3", placeholder="服务器类型", id="form-field-2") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.type %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-3" class="col-sm-3 control-label no-padding-right"> 内网IP </label>
+
+                    <div class="col-sm-8">
+                     {{ form.inner_ip(type="text", class_="col-xs-10 col-sm-3", placeholder="内网IP", id="form-field-3") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.inner_ip %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+
+                        <label for="form-field-5" class="col-sm-3 control-label no-padding-right"> 公网IP&nbsp;&nbsp;&nbsp; </label>
+                     {{ form.internet_ip(type="text", class_="col-xs-10 col-sm-3", placeholder="公网IP", id="form-field-5") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.internet_ip %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                    </div>
+
+
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-8" class="col-sm-3 control-label no-padding-right"> 环境 </label>
+
+                    <div class="col-sm-8">
+                     {{ form.env(class_="col-xs-10 col-sm-3", placeholder="环境", id="form-field-8") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.env %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+
+                        <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 所在位置&nbsp;&nbsp;&nbsp; </label>
+
+
+                     {{ form.location(class_="col-xs-10 col-sm-3", placeholder="所在位置", id="form-field-9") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.location %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                        </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-6" class="col-sm-3 control-label no-padding-right"> CPU(核)</label>
+
+                    <div class="col-sm-8">
+                     {{ form.cpu(type="text", class_="col-xs-10 col-sm-3", placeholder="核数", id="form-field-6") }}
+
+
+                        <label for="form-field-7" class="col-sm-3 control-label no-padding-right"> 内存(GB)&nbsp;&nbsp;&nbsp; </label>
+                     {{ form.ram(type="text", class_="col-xs-10 col-sm-3", placeholder="内存大小(GB)", id="form-field-7") }}
+
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-10" class="col-sm-3 control-label no-padding-right"> 硬盘大小(GB) </label>
+
+                    <div class="col-sm-8">
+                     {{ form.hdd(type="text", class_="col-xs-10 col-sm-3", placeholder="硬盘大小(GB)", id="form-field-7") }}
+
+
+                     <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 业务类型&nbsp;&nbsp;&nbsp; </label>
+
+                     {{ form.business_id(class_="col-xs-10 col-sm-3", placeholder="业务类型", id="form-field-9") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.location %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-10" class="col-sm-3 control-label no-padding-right"> 简单描述 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.desc(type="text", class_="col-xs-10 col-sm-6", placeholder="简单描述", id="form-field-7") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.desc %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> 提交</button>
+                        <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                        <a href="javascript:history.go(-1);" class="btn">
+                                                    <i class="icon-arrow-left"></i>
+                                                    <span>返回上页</span>
+                                                    </a>
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

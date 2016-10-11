@@ -1,0 +1,235 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}增加应用重启{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">项目重启</a>
+							</li>
+							<li class="active">发起重启</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<link rel="stylesheet" href="/static/css/chosen.css" />
+
+
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        发起重启
+        <small>
+        </h1>
+    </div>
+<div data-target="#step-container" class="row-fluid" id="fuelux-wizard">
+	<ul class="wizard-steps">
+		<li class="active" data-target="#step1">
+			<span class="step">1</span>
+			<span class="title">发起重启</span>
+		</li>
+
+		<li data-target="#step2">
+			<span class="step">2</span>
+			<span class="title">审批</span>
+		</li>
+
+		<li data-target="#step3">
+			<span class="step">3</span>
+			<span class="title">重启</span>
+		</li>
+
+		<li data-target="#step4">
+			<span class="step">4</span>
+			<span class="title">完成</span>
+		</li>
+	</ul>
+</div>
+<hr>
+<div class="row">
+
+
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-times"></i>
+                    错误：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+            {% endfor %}
+
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" action="{{ url_for('tomcat.addrestart') }}" method='post' name="adddeploy" id="node_list_table">
+            {{form.hidden_tag()}}
+
+            <div class="form-group">
+                <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 重启原因 </label>
+
+                <div class="col-sm-9">
+                 {{ form.subject(class_="col-xs-10 col-sm-8", placeholder="主题") }}
+                </div>
+            </div>
+
+            <div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 项目名称 </label>
+
+    			<div class="col-sm-9" style="width:120px">
+                 {{ form.app_name(class_="width-10 chosen-select", placeholder="应用名称") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.app_name %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+    			</div>
+    		</div>
+
+            <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 审批人 </label>
+
+                    <div class="col-sm-9">
+                        {{ form.auditor(class_="col-xs-10 col-sm-2", placeholder="审批人") }}
+                    </div>
+                </div>
+
+        	</div>
+
+</div>
+        <div class="row">
+    <div class="page-content">
+        <div class="page-header">
+            <h1>项目部署服务器
+                <small>
+            </h1>
+        </div>
+
+
+
+<div class="row" id="node_table">
+
+</div>
+</div>
+</div>
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <a class="btn btn-info" type="submit" id="restart_tomcat_node" href="#" ><i class="icon-ok"></i> 提交</a>
+                        <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                        <a href="javascript:history.go(-1);" class="btn">
+                                                    <i class="icon-arrow-left"></i>
+                                                    <span>返回上页</span>
+                                                    </a>
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+<script src="/static/js/jquery-2.0.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.dataTables.min.js"></script>
+<script src="/static/js/jquery.dataTables.bootstrap.js"></script>
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/static/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+            var node_list = function (app_val) {                     //定义ajax函数
+                $.ajax({
+                    url: "{{url_for('tomcat.node_list')}}",
+                    datatype: 'html',
+                    type: 'POST',
+                    async: false,
+                    data: {app_name:app_val},
+                    success: function (check_data) {
+                        $("#node_table").html(check_data);                // 改写id=return_data的div内容
+                    }, error: function () {
+                        alert("获取数据失败");
+                    }
+                });
+            }
+
+            $(document).ready(function () {              //初始的ajax数据，加载
+                var app_val=$("#app_name").val();
+                node_list(app_val);
+            })
+
+            $("#app_name").change(function () {          //ajax改变所选中的值
+                var app_val=$(this).val();
+                node_list(app_val);
+            });
+
+            $("#restart_tomcat_node").click(function () {    //ajax请求提交大表单
+                var subject=$("#subject").val()
+                var app_val=$("#app_name").val();
+                var auditor=$("#auditor").val();
+                var all_id_list = []      //表单check_list js 方法获取
+                $("input:checkbox[name='cb']:checked").each(function(){
+                    all_id_list.push($(this).val());
+                });
+
+                $.ajax({
+                    url: "{{url_for('tomcat.addrestart')}}",
+                    datatype: 'json',
+                    type: 'POST',
+                    async: false,
+                    data: {subject:subject,app_name:app_val,auditor:auditor,cb:all_id_list},
+                    traditional: true,
+                    success: function (check_data) {
+                         location.href = '{{ url_for("tomcat.restart") }}';   //js 方法 redirect 跳转到其他页面 可以用 "{ url_for("tomcat.addrestart") }}"
+                    }, error: function () {
+                        alert("获取数据失败");
+                    }
+                });
+            });
+        });
+
+
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+            $(".chosen-choices li input").addClass("height-auto");
+        });
+        $(document).ready(function ($){
+            //$(".chosen-select").attr("style","width: 120px");
+            $("#form_field_1_chosen").css("width", "120px");
+        });
+
+        $('table th input:checkbox').on('click', function(){
+        var that = this;
+        $(this).closest('table').find('tr > td:first-child input:checkbox')
+        .each(function(){
+            this.checked = that.checked;
+            $(this).closest('tr').toggleClass('selected');
+            });
+        });
+    </script>
+
+{% endblock %}

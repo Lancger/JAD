@@ -1,0 +1,580 @@
+2016-09-13 11:22:12,162 ERROR: Exception on /api/v1.0/node_task/modify_status/6654da7399888fc4eaaf69c80b7da930 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 875, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-13 12:36:08,237 ERROR: Exception on /api/v1.0/node_task/modify_status/0e0a1efc7a6fc45bffd036e99e6ba85b [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 875, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-13 12:40:32,057 ERROR: Exception on /api/v1.0/node_task/modify_status/85389710d8b5291c767017fc439ac1a1 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 875, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-13 15:33:41,804 ERROR: Exception on /favicon.ico [GET] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1370, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1330, in handle_http_exception
+    return handler(e)
+  File "/home/www/aud2/app/__init__.py", line 150, in page_404
+    return render_template('errors/404.html'), 404
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/aud2/app/templates/errors/404.html", line 2, in top-level template code
+    {% extends "base.html" %}
+  File "/home/www/aud2/app/templates/base.html", line 26, in top-level template code
+    {% include 'nav.html' %}
+  File "/home/www/aud2/app/templates/nav.html", line 221, in top-level template code
+    {% if g.user.is_admin() %}
+UndefinedError: 'werkzeug.local.LocalProxy object' has no attribute 'is_admin'
+2016-09-13 15:33:41,818 ERROR: Exception on /favicon.ico [GET] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1370, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1330, in handle_http_exception
+    return handler(e)
+  File "/home/www/aud2/app/__init__.py", line 150, in page_404
+    return render_template('errors/404.html'), 404
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/aud2/app/templates/errors/404.html", line 2, in top-level template code
+    {% extends "base.html" %}
+  File "/home/www/aud2/app/templates/base.html", line 26, in top-level template code
+    {% include 'nav.html' %}
+  File "/home/www/aud2/app/templates/nav.html", line 221, in top-level template code
+    {% if g.user.is_admin() %}
+UndefinedError: 'werkzeug.local.LocalProxy object' has no attribute 'is_admin'
+2016-09-13 16:18:26,296 ERROR: Exception on /favicon.ico [GET] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1370, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1330, in handle_http_exception
+    return handler(e)
+  File "/home/www/aud2/app/__init__.py", line 150, in page_404
+    return render_template('errors/404.html'), 404
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/aud2/app/templates/errors/404.html", line 2, in top-level template code
+    {% extends "base.html" %}
+  File "/home/www/aud2/app/templates/base.html", line 26, in top-level template code
+    {% include 'nav.html' %}
+  File "/home/www/aud2/app/templates/nav.html", line 221, in top-level template code
+    {% if g.user.is_admin() %}
+UndefinedError: 'werkzeug.local.LocalProxy object' has no attribute 'is_admin'
+2016-09-13 16:29:49,782 ERROR: Exception on /api/v1.0/node_task/modify_status/8598bd1dab94d30e92554949b79964d3 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 875, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-13 16:33:13,640 ERROR: Exception on /api/v1.0/node_task/modify_status/a3faad8f523dd46519cc9d5dfa0c1c53 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 875, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-13 16:35:06,355 ERROR: Exception on /api/v1.0/node_task/modify_status/053021bef2d72b9e883711000bc4ba6b [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 875, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-13 16:35:11,194 ERROR: Exception on /api/v1.0/node_task/modify_status/ad0a046b3aa4397125bc65b5411bc743 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 875, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-13 16:55:33,681 ERROR: Exception on /api/v1.0/node_task/modify_status/53f9b2511d4cd9e4a41b6ae5c48868ae [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 875, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 10:32:58,814 ERROR: Exception on /favicon.ico [GET] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1370, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1330, in handle_http_exception
+    return handler(e)
+  File "/home/www/aud2/app/__init__.py", line 152, in page_404
+    return render_template('errors/404.html'), 404
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/aud2/app/templates/errors/404.html", line 2, in top-level template code
+    {% extends "base.html" %}
+  File "/home/www/aud2/app/templates/base.html", line 26, in top-level template code
+    {% include 'nav.html' %}
+  File "/home/www/aud2/app/templates/nav.html", line 221, in top-level template code
+    {% if g.user.is_admin() %}
+UndefinedError: 'werkzeug.local.LocalProxy object' has no attribute 'is_admin'
+2016-09-30 10:36:27,668 ERROR: Exception on /api/v1.0/node_task/modify_status/f6fff29a6f0081bfc6f43ab8543559b3 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 10:40:06,250 ERROR: Exception on /api/v1.0/node_task/modify_status/e1cb5d511d0f8813673883aaa9f9560e [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 10:51:59,832 ERROR: Exception on /api/v1.0/node_task/modify_status/1b223978e19b0f40cf1bfe232e22c3b0 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 10:56:30,300 ERROR: Exception on /api/v1.0/node_task/modify_status/f867fb336231138d34538a69cc17f4eb [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 11:01:56,748 ERROR: Exception on /api/v1.0/node_task/modify_status/aab68292e5220364157f8d4e96a81750 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 11:04:13,507 ERROR: Exception on /api/v1.0/node_task/modify_status/0e1c48ed36f0d6f02ba176350ad6b8c7 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 11:07:31,024 ERROR: Exception on /api/v1.0/node_task/modify_status/b6da3752de368e1dee54830d1cef0a60 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 11:09:33,328 ERROR: Exception on /api/v1.0/node_task/modify_status/3ffcd32f6b9a57b8a1979e89380d4361 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 11:11:43,506 ERROR: Exception on /api/v1.0/node_task/modify_status/27759f5b76b2df1f2fa8cbaf8ef48661 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 11:13:23,586 ERROR: Exception on /api/v1.0/node_task/modify_status/b23d81ad6ddc5fc83ef97ce6d277e724 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 14:13:31,157 ERROR: Exception on /favicon.ico [GET] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1370, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1330, in handle_http_exception
+    return handler(e)
+  File "/home/www/aud2/app/__init__.py", line 152, in page_404
+    return render_template('errors/404.html'), 404
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/aud2/app/templates/errors/404.html", line 2, in top-level template code
+    {% extends "base.html" %}
+  File "/home/www/aud2/app/templates/base.html", line 26, in top-level template code
+    {% include 'nav.html' %}
+  File "/home/www/aud2/app/templates/nav.html", line 221, in top-level template code
+    {% if g.user.is_admin() %}
+UndefinedError: 'werkzeug.local.LocalProxy object' has no attribute 'is_admin'
+2016-09-30 14:49:16,356 ERROR: Exception on /api/v1.0/node_task/modify_status/1d1b27bac7abf769e648264259a0907e [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-09-30 16:11:23,741 ERROR: Exception on /favicon.ico [GET] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1370, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1330, in handle_http_exception
+    return handler(e)
+  File "/home/www/aud2/app/__init__.py", line 152, in page_404
+    return render_template('errors/404.html'), 404
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/aud2/app/templates/errors/404.html", line 2, in top-level template code
+    {% extends "base.html" %}
+  File "/home/www/aud2/app/templates/base.html", line 26, in top-level template code
+    {% include 'nav.html' %}
+  File "/home/www/aud2/app/templates/nav.html", line 221, in top-level template code
+    {% if g.user.is_admin() %}
+UndefinedError: 'werkzeug.local.LocalProxy object' has no attribute 'is_admin'
+2016-10-09 18:14:58,230 ERROR: Exception on /favicon.ico [GET] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1370, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1330, in handle_http_exception
+    return handler(e)
+  File "/home/www/aud2/app/__init__.py", line 152, in page_404
+    return render_template('errors/404.html'), 404
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 128, in render_template
+    context, ctx.app)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/templating.py", line 110, in _render
+    rv = template.render(context)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 969, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/www/.demo/lib/python2.7/site-packages/jinja2/environment.py", line 742, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/aud2/app/templates/errors/404.html", line 2, in top-level template code
+    {% extends "base.html" %}
+  File "/home/www/aud2/app/templates/base.html", line 26, in top-level template code
+    {% include 'nav.html' %}
+  File "/home/www/aud2/app/templates/nav.html", line 221, in top-level template code
+    {% if g.user.is_admin() %}
+UndefinedError: 'werkzeug.local.LocalProxy object' has no attribute 'is_admin'
+2016-10-10 09:41:53,458 ERROR: Exception on /api/v1.0/node_task/modify_status/2f824e300581b076af9547a3d4173784 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-10-10 09:53:38,575 ERROR: Exception on /api/v1.0/node_task/modify_status/6f5e9ad3e75b02125feb3d3ba317097e [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-10-10 10:52:45,541 ERROR: Exception on /api/v1.0/node_task/modify_status/dfc65842388e4ff08efc01f65db2b2fb [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2016-10-10 11:35:20,959 ERROR: Exception on /api/v1.0/node_task/modify_status/d6b5e87dcd96cde8903f7c1b6cb5b791 [POST] [in /home/www/.demo/lib/python2.7/site-packages/flask/app.py:1423]
+Traceback (most recent call last):
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1817, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1477, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1381, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/www/.demo/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/www/aud2/app/views/site.py", line 895, in modify_node_task_status
+    mes.sendEmail()
+  File "/home/www/aud2/app/utils/message.py", line 45, in sendEmail
+    thr = Thread(target=send_async_email, args=[receiver + '@aicai.com', subject, html])
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'

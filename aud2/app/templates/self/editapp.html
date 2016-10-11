@@ -1,0 +1,299 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}编辑应用{% endblock %}
+
+{% block content %}
+
+
+<div class="main-content">
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('breadcrumbs', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="/">Home</a>
+        </li>
+
+        <li>
+            <a href="#">项目管理</a>
+        </li>
+        <li class="active">编辑项目配置</li>
+    </ul>
+    <!-- .breadcrumb -->
+
+</div>
+
+<div class="page-content">
+<div class="row">
+<div class="col-xs-12">
+
+<div class="page-content">
+<div class="page-header">
+    <h1>
+        编辑项目配置
+        <small>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" method='post'>
+            {{form.hidden_tag()}}
+
+            <div class="form-group">
+                <label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 项目名称 </label>
+
+                <div class="col-sm-9">
+                    {{ form.app_name(type="text", class_="col-xs-10 col-sm-3", placeholder="项目名称", id="form-field-1") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.app_name %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+
+                <label for="form-field-6" class="col-sm-3 control-label no-padding-right"> 所属站点 </label>
+
+                <div class="col-sm-8">
+                    {{ form.site(class_="col-xs-10 col-sm-3", placeholder="所属站点", id="form-field-7") }}
+
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+                <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 应用描述 </label>
+
+                <div class="col-sm-9">
+                    {{ form.desc(class_="col-xs-10 col-sm-6", placeholder="应用描述", id="form-field-9") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.desc %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+                <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> 程序部署路径 </label>
+
+                <div class="col-sm-9">
+                    {{ form.app_path(type="text", class_="col-xs-10 col-sm-6", placeholder="程序部署路径", id="form-field-4")
+                    }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.app_path %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+                <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> 业务类别 </label>
+
+                <div class="col-sm-8">
+                    {{ form.business_id(class_="col-xs-10 col-sm-2", placeholder="业务类别",
+                    id="form-field-6") }}
+
+
+                    <label for="form-field-7" class="col-sm-3 control-label no-padding-right"> RSYNC路径名称&nbsp;&nbsp;&nbsp; </label>
+                    {{ form.rsync_path_name(type="text", class_="col-xs-10 col-sm-2", placeholder="RSYNC路径名称",
+                    id="form-field-7") }}
+
+                </div>
+
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+                <label for="form-field-5" class="col-sm-3 control-label no-padding-right"> Tomcat部署路径 </label>
+
+                <div class="col-sm-9">
+                    {{ form.tomcat_path(type="text", class_="col-xs-10 col-sm-6", placeholder="Tomcat部署路径",
+                    id="form-field-5") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.tomcat_path %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+                <label for="form-field-6" class="col-sm-3 control-label no-padding-right"> Tomcat服务端口 </label>
+
+                <div class="col-sm-8">
+                    {{ form.port(type="text", class_="col-xs-10 col-sm-3", placeholder="Tomcat服务端口", id="form-field-6")
+                    }}
+
+
+                    <label for="form-field-7" class="col-sm-3 control-label no-padding-right"> Tomcat关闭端口&nbsp;&nbsp;&nbsp; </label>
+                    {{ form.shutdown_port(type="text", class_="col-xs-10 col-sm-3", placeholder="Tomcat关闭端口",
+                    id="form-field-7") }}
+
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+                <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> SVN地址 </label>
+
+                <div class="col-sm-9">
+                    {{ form.svn_url(type="text", class_="col-xs-10 col-sm-6", placeholder="SVN地址", id="form-field-4") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.svn_url %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-info" type="submit"><i class="icon-ok"></i> 提交</button>
+                    <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                    <a href="javascript:history.go(-1);" class="btn">
+                        <i class="icon-arrow-left"></i>
+                        <span>返回上页</span>
+                    </a>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="page-content">
+        <div class="page-header">
+            <h1>项目部署服务器
+                <small>
+            </h1>
+        </div>
+
+
+
+<div class="row">
+    <h6>
+        <div class="table-header">
+            部署服务器数量：<span class="badge badge-danger">{{total}}</span>
+        </div>
+
+        <div class="table-responsive">
+                    <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="dataTables_filter" id="sample-table-2_filter">
+                                    <form action="{{ url_for('self.addappnode') }}" method="post" name="addappnode">
+                                        {{form.csrf_token}}
+                                        <input type="hidden" name="app_id" value={{appid}}>
+                                        <input type="hidden" name="app_name" value={{form.app_name.data}}>
+                                        <input type="hidden" name="business_id" value={{form.business_id.data}}>
+                                        {{ add_node_form.node_ip }}<input type="submit" value="添加">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <form action="{{ url_for('tomcat.tomcat_task') }}" id="cb_form" class="form" method="post">
+                        {{form.csrf_token}}
+                            <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                <caption></caption>
+                                <thead>
+                                    <tr>
+                                        <th class="center" style="width:20px;">
+                                            <label>
+                                                <input type="checkbox" class="ace">
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </th>
+                                        <th>节点</th>
+                                        <th>环境</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for R in object_list %}
+                                    <tr>
+                                        <td class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" name="cb" value="{{R.node_ip}}">
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </td>
+                                        <td><p><a href="{{ url_for('servers.editserver', ip = R.node_ip)}}">{{R.node_ip}}</a></p>{{R.desc}}
+                                        </td>
+                                        <td>{{ APP_ENV[R.env] }}</td>
+                                        <td>
+                                            <a href="{{ url_for('tomcat.tomcat_task', node_id = R.node_id, app_id = appid, type = 3)}}"><span class="label label-lg label-purple"><i class="fa fa-suitcase bigger-120"></i> Tomcat程序打包</span></a>
+                                            <a href="{{ url_for('tomcat.tomcat_task', node_id = R.node_id, app_id = appid, type = 4)}}"><span class="label label-lg label-purple"><i class="fa fa-suitcase bigger-120"></i> APP程序打包</span></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                        <div class="col-xs-12">
+                            <input type="hidden" name="app_id" value={{appid}}>
+                            <button class="btn btn-success btn-sm" name="btn" value="deploy" type="submit" onclick="return confirm('确定要部署所选节点Tomcat？')"><i class="fa fa-paper-plane bigger-120"></i> 部署Tomcat</button>
+                            <button class="btn btn-success btn-sm" name="btn" value="appdeploy" type="submit" onclick="return confirm('确定要部署所选节点APP程序？')"><i class="fa fa-paper-plane bigger-120"></i> 部署APP</button>
+                            <button class="btn btn-success btn-sm" name="btn" value="tomcat_app_deploy" type="submit" onclick="return confirm('确定要部署所选节点？')"><i class="fa fa-paper-plane bigger-120"></i> 同时部署APP和Tomcat</button>
+                            <button class="btn btn-warning btn-sm" name="btn" value="reboot" type="submit" onclick="return confirm('确定要重启所选节点Tomcat？')"><i class="fa fa-refresh bigger-120"></i> 重启Tomcat</button>
+                            <button class="btn btn-danger btn-sm" name="btn" value="stop" type="submit" onclick="return confirm('确定要停止所选节点Tomcat？')"><i class="fa fa-refresh bigger-120"></i> 停止Tomcat</button>
+                            <button class="btn btn-danger btn-sm" name="btn" value="remove" type="submit" onclick="return confirm('确定要移除所选节点？')"><i class="ace-icon fa fa-trash-o bigger-120"></i> 移除节点</button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+
+        </h6>
+</div>
+</div>
+</div>
+<script src="/static/js/jquery-2.0.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.dataTables.min.js"></script>
+<script src="/static/js/jquery.dataTables.bootstrap.js"></script>
+
+<script type="text/javascript">
+    function checkDelete(app_id, node_ip) {
+        if (window.confirm("你确定要删除该节点:" + node_ip + "?")) {
+            top.location = '/delappnode/?app_id=' + app_id + '&node_ip=' + node_ip;
+        }
+        return false;
+    }
+
+    $('table th input:checkbox').on('click', function(){
+        var that = this;
+        $(this).closest('table').find('tr > td:first-child input:checkbox')
+        .each(function(){
+            this.checked = that.checked;
+            $(this).closest('tr').toggleClass('selected');
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,109 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}增加应用类别{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">项目管理</a>
+							</li>
+							<li class="active">添加新站点类别</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        添加新站点类别
+        <small>
+        </h1>
+    </div>
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" action="addsite" method='post' name="addsite">
+            {{form.hidden_tag()}}
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 所属站点 </label>
+
+    			<div class="col-sm-9">
+                 {{ form.site_name(type="text", class_="col-xs-10 col-sm-4", placeholder="所属站点,无则填写独立服务", id="form-field-1") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.server_name %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+         <div class="form-group">
+                    <label for="form-field-2" class="col-sm-3 control-label no-padding-right"> 应用大类 </label>
+
+                    <div class="col-sm-8">
+                     {{ form.site_type(type="text", class_="col-xs-10 col-sm-2", placeholder="应用大类", id="form-field-2") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.site_type %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+                 <div class="form-group">
+                    <label for="form-field-2" class="col-sm-3 control-label no-padding-right"> 业务大类 </label>
+
+                    <div class="col-sm-8">
+                     {{ form.business_id(type="text", class_="col-xs-10 col-sm-2", placeholder="业务大类", id="form-field-2") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.business_id %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> 提交</button>
+                        <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                        <a href="javascript:history.go(-1);" class="btn">
+                                                    <i class="icon-arrow-left"></i>
+                                                    <span>返回上页</span>
+                                                    </a>
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}服务器{% endblock %}
+ 
+{% block content %}
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">项目管理</a>
+							</li>
+							<li class="active">站点类别管理</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+    <div class="page-content">
+    <div class="page-header">
+        <h1>
+        站点类别管理
+        <small>
+        </h1>
+    </div>
+    <h6>
+
+<div class="table-header">
+	当前站点类别数量：<span class="badge badge-danger">{{total}}</span>
+</div>
+<div class="table-responsive">
+    <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+    <div class="row">
+     <div class="col-sm-6">
+         <div id="sample-table-2_length" class="dataTables_length">
+             <p><button class="btn btn-sm btn-success" onclick="javascript:top.location='/addsite';">
+                 <i class="fa fa-plus-square-o"></i> 添加新站点类别</button></p>
+         </div>
+     </div>
+     <div class="col-sm-6">
+         <div id="nav-search" class="nav-search">
+        <form class="form-search" method='post'>
+        <span class="input-icon">
+            {{ form.s_content(id="nav-search-input", class_="nav-search-input", type="text", placeholder="搜索站点类别") }}
+        <i class="icon-search nav-search-icon"></i>
+        </span>
+            {{form.csrf_token}}
+        </form>
+        </div>
+     </div>
+
+    </div>
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+           <caption></caption>
+           <thead>
+               <tr>
+                   <th>类别ID</th>
+                   <th>类别名称</th>
+                   <th>业务大类</th>
+                   <th>状态</th>
+                   <th>操作</th>
+                </tr>
+           </thead>
+
+          <tbody>
+              {% for R in object_list %}
+              <tr>
+                  <td>{{R.id}}</td>
+                  <td><a href="{{ url_for('site.editsite', id = R.id)}}">{{R.site_name}}</a></td>
+                  <td>{{R.business_name}}</td>
+                  {% if R.status == 1 %}
+                  <td><button class="btn btn-xs btn-success" onClick='location="/onoffsite/"+{{R.id}}' >
+                    <i class="fa fa-check"></i>
+                        </button></td>
+                  {% else %}
+                  <td><button class="btn btn-xs btn-danger" onClick='location="/onoffsite/"+{{R.id}}' >
+                    <i class="fa fa-times"></i>
+                        </button></td>
+                  {% endif %}
+                  <td><a class="red" onclick='return checkDelete("{{R.id}}","{{R.site_name}}")'>
+                    <i class="icon-trash bigger-130"></i>
+                    </a></td>
+              </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+
+    {% if pagination %}
+    <tr>
+        <div class="dataTables_paginate paging_bootstrap">
+        {{ macros.pagination_widget(pagination, '.sites') }}</div>
+    </tr>
+    {% endif %}
+    </div>
+</div>
+</h6>
+<script type="text/javascript">
+function checkDelete(id,site_name) {
+    if (window.confirm("你确定要删除应用类别:"+site_name+"?")) {
+      top.location='/delsite/'+id;
+    }
+    return false;
+   }
+</script>
+
+{% endblock %}

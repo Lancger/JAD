@@ -1,0 +1,132 @@
+{% extends "self/base.html" %}
+
+{% block title %}
+    {{ custom_title }}
+{% endblock %}
+
+{% block content %}
+
+    <form class="form-horizontal" method="post" action="">
+        {{form.hidden_tag()}}{{ form.csrf_token }}
+        <div class="form-group">
+            <label for="id_username" class="control-label col-xs-2">邮箱</label>
+            <div class="col-xs-3">
+                <div class="input-group">
+                <!--<input  class="form-control" id="id_username" placeholder="公司邮箱名">-->
+                     {{ form.account(class_="form-control",id="id_username",placeholder="公司帐号") }}
+                <span class="input-group-addon">@aicai.com</span>
+                </div>
+                {% for error in form.errors.account %} <span style="color: red;" class="help-inline">[{{error}}]</span>{% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="control-label col-xs-2">短信验证码</label>
+            <div class="col-xs-3">
+                {{ form.vcode(class_="form-control",id="=vcode",placeholder="短信验证码") }}<span style="color: limegreen;">30分钟内输入有效，请勿泄露!</span><br>
+                <!--<input  class="form-control" id="=vcode" placeholder="短信验证码">-->
+                <span id="vcode_help_text" class="help-inline">{% for error in form.errors.vcode %} <span style="color: red;" class="help-inline">[{{error}}]</span>{% endfor %}
+            </div>
+        </div>
+        <div class="space-4"></div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-2 col-md-1">
+                <button type="button" id="getvcode_bn" class="btn btn-primary">获取短信验证码</button>
+            </div>
+            <div class="col-md-offset-1 col-md-3">
+                <!--<button type="submit" id="id_active_next" class="btn btn-primary disabled">下一步</button>-->
+                <button type="submit" id="id_active_next" class="btn btn-primary">下一步</button>
+            </div>
+        </div>
+    </form>
+
+
+<script type="application/javascript">
+
+    var wait = 30;
+    get_code_time = function (o) {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            //o.value = "获取验证码";
+            o.innerHTML = "获取验证码";
+            wait = 5;
+        } else {
+            o.setAttribute("disabled", true);
+            //o.value = "(" + wait + ")秒后重新获取";
+            o.innerHTML = "(" + wait + ")秒后重新获取";
+            wait--;
+            setTimeout(function () {
+                get_code_time(o)
+            }, 1000)
+        }
+    };
+
+
+    //重新获取验证码
+    $('#getvcode_bn').click(function () {
+
+        var csrftoken = $('meta[name=csrf-token]').attr('content');
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+            }
+        });
+
+        var o = this;
+        var uname = $("#id_username").val();//获取用户名
+        if (uname == null || uname == "") {
+            alert("用户名不能为空!");
+        } else {
+            get_code_time(o);
+            var phone = "";
+            $.ajax({
+                url: "{{ url_for('self.sms_vcode_send', action = 'ajax') }}",
+                type: "post",
+                data: {account: uname},
+                dataType: "json",
+                success: function (data) {
+                    if (data.msg != "") {
+                        console.log(data);
+                        phone = data.p;
+                        console.log(data.msg);
+                        alert("验证码已发送至您的手机: " + phone);
+                    }
+                }
+            });
+        }
+    });
+
+    //验证验证码
+    $('#valid_next').click(function () {
+        var o = this;
+        var uname = $("#id_username").val();//获取用户名
+        var vcode = $("#valid_next").val();//获取验证码
+        if (uname == null || uname == "" || vcode == null || vcode == "") {
+            alert("用户名和验证码不能为空!");
+        } else {
+            get_code_time(o);
+            var phone = "";
+            $.ajax({
+                url: "",
+                type: "post",
+                data: {username: uname, vcode: vcode},
+                dataType: "json",
+                success: function (data) {
+                    if (data.msg != "") {
+                        console.log(data);
+                        phone = data.p;
+                        console.log(data.msg);
+                        alert("验证码已发送至您的手机: " + phone);
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>
+
+{% endblock %}

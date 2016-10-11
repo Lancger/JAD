@@ -1,0 +1,38 @@
+{% extends "self/base.html" %}
+
+{% block title %}
+    设置密码
+{% endblock %}
+
+{% block content %}
+
+    <form class="form-horizontal" method="post" action="">
+        {{form.hidden_tag()}}{{ form.csrf_token }}{{ form.dn }}
+        <div class="form-group">
+            <label for="id_password1" class="control-label col-xs-2">新密码:</label>
+            <div class="col-xs-3">
+                     {{ form.password1(type="password",class_="form-control", maxlength="20", placeholder="新密码") }}
+                {% for error in form.errors.password1 %} <span style="color: red;" class="help-inline">[{{error}}]</span>{% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_password2" class="control-label col-xs-2">确认新密码:</label>
+            <div class="col-xs-3">
+                     {{ form.password2(type="password",class_="form-control", maxlength="20", placeholder="确认密码") }}
+                {% for error in form.errors.password2 %} <span style="color: red;" class="help-inline">[{{error}}]</span>{% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_password2" class="control-label col-xs-7" style="color: limegreen;">注意：密码需包含至少:一个大写字母、一个小写字母和一个数字，长度8-20位！例如：zWc120929</label>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <input type="submit" value="提交" id="id_change_mobile" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

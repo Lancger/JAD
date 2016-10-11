@@ -1,0 +1,235 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}编辑应用{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">常用查询</a>
+							</li>
+							<li class="active">项目详情</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        项目详情
+        <small>
+        </h1>
+    </div>
+<div class="widget-body">
+    <div class="widget-main">
+        <h6>
+        <div class="profile-user-info profile-user-info-striped">
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 项目名称 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.app_name }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 所属站点 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.site }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 项目描述 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.desc }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 程序部署路径 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.app_path }}</span>
+                </div>
+            </div>
+            {% if obj.tomcat_path %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> Tomcat部署路径 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.tomcat_path }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> Tomcat服务端口 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.port }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> Tomcat关闭端口 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.shutdown_port }}</span>
+                </div>
+            </div>
+            {% endif %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> SVN地址 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.svn_url }}</span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+<div class="page-content">
+    <div class="page-header">
+        <h1>项目部署服务器
+        <small>
+        </h1>
+    </div>
+<div class="row">
+<h6>
+<div class="table-header">
+	部署服务器数量：<span class="badge badge-danger">{{total}}</span>
+</div>
+
+<div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+    <div class="row">
+     <div class="col-sm-6">
+         <div id="sample-table-2_length" class="dataTables_length">
+         </div>
+     </div>
+     <div class="col-sm-6">
+     </div>
+
+    </div>
+
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+           <caption></caption>
+           <thead>
+               <tr>
+                <th>服务器</th>
+                <th>环境</th>
+                <th>状态</th>
+                </tr>
+           </thead>
+
+          <tbody>
+              {% for R in object_list %}
+              <tr>
+                  <td><p><a href="{{ url_for('servers.serverdetail', ip = R.node_ip)}}">{{R.node_ip}}</a></p>{{R.desc}}</td>
+                  <td>{{ APP_ENV[R.env] }}</td>
+                  {% if R.status == 1 %}
+                  <td><button class="btn btn-xs btn-success" >
+                    <i class="fa fa-check"></i>
+                        </button></td>
+                  {% else %}
+                  <td><button class="btn btn-xs btn-danger" >
+                    <i class="fa fa-times"></i>
+                        </button></td>
+                  {% endif %}
+              </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+</h6>
+</div>
+</div>
+    </div>
+
+<div class="row">
+<div class="page-content">
+    <div class="page-header">
+        <h1>项目更新历史
+        <small>
+        </h1>
+    </div>
+<div class="row">
+<h6>
+<div class="table-header">
+	项目更新历史(最近10条)
+</div>
+
+<div class="table-responsive">
+    <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+    <div class="row">
+
+    </div>
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+           <caption></caption>
+           <thead>
+               <tr>
+                    <th>更新批次/主题</th>
+                    <th>方式</th>
+                    <th>环境</th>
+                    <th>发起人</th>
+                    <th>创建时间</th>
+                    <th>完成时间</th>
+                    <th>状态</th>
+                </tr>
+           </thead>
+
+          <tbody>
+              {% for R in deploy_history %}
+              <tr>
+                  <td><p><a href="{{ url_for('deploy.deploygo', batch_no = R.batch_no)}}">{{R.batch_no}}</a></p>
+                    {{R.subject}}
+                  </td>
+
+                  {% if R.type in (2,3) %}
+                  <td><span class="badge badge-pink mail-tag"></span>{{DEPLOY_TYPE[R.type]}}</td>
+                  {% else %}
+                  <td><span class="badge badge-success mail-tag"></span>{{DEPLOY_TYPE[R.type]}}</td>
+                  {% endif %}
+
+                  <td>{{APP_ENV[R.env]}}</td>
+                  <td><a class="user" href=""> {{R.username}}</a></td>
+                  <td>{{R.create_time}}</td>
+                  <td>{{R.finish_time}}</td>
+
+                  {% if R.status == 5 %}
+                  <td><span class="label label-danger"><i class="icon-warning-sign bigger-120"></i>{{DEPLOY_STATUS[R.status]}}</span></td>
+                  {% elif R.status == 4 %}
+                  <td><span class="label label-success"><i class="icon-ok"></i>{{DEPLOY_STATUS[R.status]}}</span></td>
+                  {% else %}
+                  <td><span class="label label-purple">{{DEPLOY_STATUS[R.status]}}...</span></td>
+                  {% endif%}
+
+              </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+    </div>
+    </h6>
+</div>
+</h6>
+</div>
+</div>
+    </div>
+{% endblock %}

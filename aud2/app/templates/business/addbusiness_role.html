@@ -1,0 +1,113 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}增加业务权限{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="/ldapuser">业务管理</a>
+							</li>
+							<li class="active">添加业务权限</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<link rel="stylesheet" href="/static/css/chosen.css" />
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        添加业务权限
+        <small>
+        </h1>
+    </div>
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" action="addbusinessrole" method='post' name="addbusinessrole">
+            {{form.hidden_tag()}}
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 帐号 </label>
+
+    			<div class="col-sm-9" style="width:120px">
+                 {{ form.user_id(class_="width-10 chosen-select", placeholder="用户名称", id="form-field-1") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.user_id %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+
+             <div class="form-group">
+                    <label for="form-field-10" class="col-sm-3 control-label no-padding-right"> 业务名称 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.business_id(type="text", class_="col-xs-10 col-sm-6", placeholder="业务名称", id="form-field-7") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.business_id %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> 提交</button>
+                        <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                        <a href="javascript:history.go(-1);" class="btn">
+                                                    <i class="icon-arrow-left"></i>
+                                                    <span>返回上页</span>
+                                                    </a>
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/static/js/chosen.jquery.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+        });
+
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+            $(".chosen-choices li input").addClass("height-auto");
+        });
+        $(document).ready(function ($){
+            //$(".chosen-select").attr("style","width: 120px");
+            $("#form_field_1_chosen").css("width", "120px");
+        });
+    </script>
+
+{% endblock %}
+                

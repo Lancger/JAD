@@ -1,0 +1,38 @@
+{% extends "self/base.html" %}
+
+{% block title %}
+    修改完成
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+    <div class="col-md-5">
+    <p class="text-left text-success">操作成功,RTX上手机号将于次日同步更新后生效,请知晓
+    <div id="ShowDiv"></div>
+    </p>
+    </div>
+    </div>
+
+<script language='javascript' type='text/javascript'>
+var secs =5; //倒计时的秒数
+var URL ;
+function Load(url){
+URL =url;
+for(var i=secs;i>=0;i--)
+{
+window.setTimeout('doUpdate(' + i + ')', (secs-i) * 1000);
+}
+}
+function doUpdate(num)
+{
+document.getElementById('ShowDiv').innerHTML = '将在'+num+'秒后自动跳转到首页' ;
+if(num == 0) { window.location=URL; }
+}
+</script>
+<body>
+<div id="ShowDiv"></div>
+<script language="javascript">
+Load("{{ url_for('self.index') }}");
+</script>
+{% endblock %}

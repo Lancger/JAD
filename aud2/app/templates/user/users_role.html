@@ -1,0 +1,86 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}服务器{% endblock %}
+ 
+{% block content %}
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">帐号和权限</a>
+							</li>
+							<li class="active">帐号角色管理</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+    <div class="page-content">
+    <div class="page-header">
+        <h1>
+        帐号角色管理
+        <small>
+        </h1>
+    </div>
+
+<div class="table-header">
+	共有<span class="badge badge-danger">{{total}}</span>个帐号
+</div>
+<div class="table-responsive">
+    <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+    <div class="row">
+     <div class="col-sm-6">
+     </div>
+     <div class="col-sm-6">
+         <div id="nav-search" class="nav-search">
+        </div>
+     </div>
+
+    </div>
+
+
+    <h6>
+                <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                       <caption></caption>
+                       <thead>
+                           <tr>
+                                <th>UID</th>
+                                <th>帐号</th>
+                                <th>姓名</th>
+                                <th>部门</th>
+                                <th>角色</th>
+                            </tr>
+                       </thead>
+
+                      <tbody>
+                          {% for R in object_list %}
+                          <tr>
+                              <td>{{R.uid}}</a></td>
+                              <td>{{R.account}}</td>
+                              <td>{{R.username}}</td>
+                              <td>{{R.depart}}</td>
+                              <td><a href="{{ url_for('perm.editrole', uid = R.uid)}}">{{R.role}}</a></td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                </table>
+                </div>
+                </h6>
+    </div>
+
+
+{% endblock %}

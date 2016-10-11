@@ -1,0 +1,131 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}用户列表{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">用户和权限</a>
+            </li>
+            <li class="active">用户权限组</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        用户权限组
+        <small>
+        </h1>
+    </div>
+
+     {% for message in get_flashed_messages() %}
+
+
+        <div>
+            <div class="alert alert-success">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-check"></i>
+                    提示：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+        </div>
+
+        {% endfor %}
+
+<div class="col-xs-12">
+<div class="row">
+
+    <div class="col-sm-4">
+        <div id="sample-table-2_length" class="dataTables_length">
+            <p><button class="btn btn-sm btn-success" onclick="javascript:top.location='{{ url_for('perm.add') }}';">
+                <i class="fa fa-stethoscope"></i>
+
+                添加新权限组</button></p>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="sample-table-2_length" class="dataTables_length">
+            <p><button class="btn btn-sm btn-warning" onclick="javascript:top.location='{{ url_for('perm.checkall') }}';">
+                <i class="fa fa-stethoscope"></i>
+
+                检查所有权限组</button></p>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="nav-search" class="nav-search">
+            <form class="form-search" method='post'>
+                {{ form.csrf_token }}
+                                            <span class="input-icon">
+                                                {{ form.s_content(id="nav-search-input", class_="nav-search-input", type="text", placeholder="搜索权限组") }}
+                                            <i class="icon-search nav-search-icon"></i>
+                                            </span>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div class="table-header">
+	从LDAP同步的用户权限组
+</div>
+
+<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+       <caption></caption>
+       <thead>
+           <tr>
+               <th>用户权限组</th>
+               <th>DN</th>
+               <th>动作</th>
+
+           </tr>
+       </thead>
+
+       <tbody>
+           {% for R in object_list %}
+           <tr>
+               <td><h4>
+                   <a href="{{ url_for('perm.info', perm_id=R.id) }}">{{R.cn}}</a>
+                   {% if R.account_status ==1 %}
+                   <i class="icon-warning-sign red bigger-130"></i>
+                   {% endif %}</h4></td>
+               <td>{{R.dn}}</td>
+               <td><a href="{{ url_for('perm.check',id=R.id) }}">检查权限</td>
+           </tr>
+           {% endfor %}
+       </tbody>
+</table>
+    {% if pagination %}
+    <tr>
+        <div class="dataTables_paginate paging_bootstrap">
+        {{ macros.pagination_widget(pagination, '.list') }}</div>
+    </tr>
+    {% endif %}
+    </div>
+    </div>
+        {% endblock %}

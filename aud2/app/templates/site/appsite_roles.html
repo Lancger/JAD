@@ -1,0 +1,98 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}业务管理{% endblock %}
+ 
+{% block content %}
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="/ldapconfig">业务管理</a>
+							</li>
+							<li class="active">业务管理</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+    <div class="page-content">
+    <div class="page-header">
+        <h1>
+        业务权限管理
+        <small>
+        </h1>
+    </div>
+    <h6>
+
+<div class="table-header">
+	当前业务权限数量：<span class="badge badge-danger">{{total}}</span>
+</div>
+<div class="table-responsive">
+    <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+    <div class="row">
+     <div class="col-sm-6">
+         <div id="sample-table-2_length" class="dataTables_length">
+             <p><button class="btn btn-sm btn-success" onclick="javascript:top.location='/business/addbusinessrole';">
+                 <i class="fa fa-plus-square-o"></i> 添加新业务权限</button></p>
+         </div>
+     </div>
+     <div class="col-sm-6">
+         <div id="nav-search" class="nav-search">
+        <form class="form-search" method='post'>
+        <span class="input-icon">
+            {{ form.s_content(id="nav-search-input", class_="nav-search-input", type="text", placeholder="搜索业务权限") }}
+        <i class="icon-search nav-search-icon"></i>
+        </span>
+        </form>
+        </div>
+     </div>
+
+    </div>
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+           <caption></caption>
+           <thead>
+               <tr>
+                    <th>用户ID</th>
+                    <th>帐号</th>
+                    <th>业务ID</th>
+                    <th>业务名称</th>
+                </tr>
+           </thead>
+
+          <tbody>
+              {% for R in object_list %}
+                  <td>{{R.user_id}}</td>
+                  <td><a href="{{ url_for('business.editbusiness', id = R.id)}}">{{R.username}}</a></td>
+                  <td>{{R.business_id}}</td>
+                  <td>{{R.business_name}}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+        {% if pagination %}
+            <tr>
+                <div class="dataTables_paginate paging_bootstrap">
+                    {{ macros.pagination_widget(pagination, '.business') }}
+                </div>
+            </tr>
+        {% endif %}
+
+    </div>
+    </h6>
+</div>
+{% endblock %}

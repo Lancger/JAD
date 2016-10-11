@@ -1,0 +1,311 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}用户列表{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">域控(AD)管理</a>
+            </li>
+            <li class="active">域控(AD)部门和用户</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+    <div class="page-header">
+        <h1>
+        域(AD)用户
+        <small>
+        </h1>
+    </div>
+{% for message in get_flashed_messages() %}
+
+
+    <div>
+            <div class="alert alert-success">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-check"></i>
+                    提示：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+        </div>
+
+            {% endfor %}
+
+
+<div class="col-xs-12">
+										<div class="tabbable">
+											<ul id="myTab" class="nav nav-tabs">
+												<li class="active">
+													<a href="#home" data-toggle="tab">
+														<i class="green icon-group  bigger-110"></i>
+														普通用户
+													</a>
+												</li>
+
+                                                <li class="">
+													<a href="#tree" data-toggle="tab">
+                                                        <i class="green fa fa-tree bigger-110"></i>
+														组织架构
+													</a>
+												</li>
+
+
+											</ul>
+
+											<div class="tab-content">
+												<div class="tab-pane active" id="home">
+
+
+
+													<div class="table-header">
+                                                    AD中的用户<span class="badge badge-danger">{{ad_user_total}}</span>
+                                                </div>
+
+
+                                                <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                                       <caption></caption>
+                                                       <thead class="table-header">
+                                                           <tr>
+                                                               <th>姓名</th>
+                                                               <th>部门</th>
+                                                               <th>DN</th>
+                                                               <th>邮箱</th>
+                                                               <th>帐号检查</th>
+                                                           </tr>
+                                                       </thead>
+                                                       <h6>
+                                                           <tbody>
+                                                           {% for R in all_ad_user %}
+                                                           <tr>
+                                                               <td>
+                                                                   <a href="{{ url_for('directory.ad_user', account = R.sAMAccountName)}}">{{R.displayName}}</a>
+                                                               </td>
+                                                               <td>
+                                                                   <a href="{{ url_for('directory.ad_ou', oumd5 = ','.join(R.dn.split(',')[1:])|str_md5|safe ) }}">{{'\\'.join(R.dn.split(',OU=')[1:-1][::-1])}}</a>
+                                                               </td>
+                                                               <td>{{R.dn}}</td>
+                                                               <td>{{R.userPrincipalName}}</td>
+                                                               <td>
+                                                                   <table class="ldap_check">
+                                                                       <tbody>
+                                                                       <tr>
+                                                                           <td>LDAP帐号：</td>
+                                                                           <td><span class="label label-sm ldap_status">检查中...</span>
+                                                                           </td>
+                                                                       </tr>
+                                                                       <tr><a class="user_dn" style="display:none">{{R.dn}}</a>
+                                                                       </tr>
+                                                                       </tbody>
+                                                                   </table>
+
+                                                               </td>
+                                                           </tr>
+                                                           {% endfor %}
+                                                           </tbody>
+                                                           </h6>
+                                                </table>
+
+												</div>
+
+                                                <div class="tab-pane " id="tree">
+
+                                                    <div class="table-header">
+                                                    AD中的部门和用户
+                                                </div>
+
+
+                                                <div class="widget-box">
+
+                                                        <h6>
+                                                        <div class="widget-body">
+                                                            <div class="widget-main padding-8">
+
+                                                                <!-- 构建树状div -->
+                                                                <div id="tree1" class="tree"></div>
+                                                            </div>
+                                                        </div>
+                                                            </h6>
+                                                    </div>
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+</div>
+
+
+<script src="/static/js/jquery-2.0.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.dataTables.min.js"></script>
+<script src="/static/js/jquery.dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+
+    jQuery(function ($) {
+        // dataTable参数设置
+        $('#sample-table-1').dataTable({
+            "aoColumnDefs": [
+                {"bSortable": false, "aTargets": [0]}
+            ],    // 第0个选项即checkbox选择框不提供排序按钮，如果没有checkbox可删除这一项
+            "aLengthMenu": [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],    // 每页显示多少条记录下拉列表选项，左边为真实值，右边为显示在网页的值
+            "iDisplayLength": -1,   // 默认每页显示的条数
+            "bAutoWidth": false,
+            "aoColumns": [
+                { sWidth: '10%' },
+                { sWidth: '25%' },
+                { sWidth: '45%' },
+                { sWidth: '10%' },
+                { sWidth: '15%' }
+            ]
+        });
+
+
+    })
+</script>
+
+<script src="/static/js/fuelux/fuelux.tree.min.js"></script>
+<script src="/static/js/ace-elements.min.js"></script>
+<script type="text/javascript">
+    jQuery(function($){
+
+        var csrftoken = $('meta[name=csrf-token]').attr('content')
+
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+            }
+        })
+
+        // 格式化数据
+        var DataSourceTree = function (options) {
+            this.url = options.url;
+        }
+
+        DataSourceTree.prototype.data = function (options, callback) {
+            var self = this;
+            var $data = null;
+
+            var param = null
+
+            if (!("name" in options) && !("type" in options)) {
+                param = 0;//load the first level
+            }
+            else if ("type" in options && options.type == "folder") {
+                if ("additionalParameters" in options && "children" in options.additionalParameters) {
+                    param = options.additionalParameters["id"];
+                }
+            }
+
+            if (param != null) {
+
+                // 用ajax向后台请求数据
+                $.ajax({
+                    url: this.url,
+                    data: 'id=' + param,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status == "OK")
+                            callback({ data: response.data })
+                    },
+                    error: function (response) {
+                        alert("获取数据失败");
+                    }
+                })
+            }
+        };
+
+        $('#tree1').ace_tree({
+            dataSource: new DataSourceTree({ url: '{{url_for('directory.ad_tree', action = 'ajax')}}' }),
+            multiSelect: true,
+            loadingHTML: '<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
+            'open-icon': 'icon-minus',
+            'close-icon': 'icon-plus',
+            'selectable': true,
+            'selected-icon': 'icon-user',
+            'unselected-icon': 'icon-user'
+        });
+    });
+</script>
+
+<script src="/static/js/jquery-2.0.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+
+            var csrftoken = $('meta[name=csrf-token]').attr('content');
+
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                    }
+                }
+            });
+
+            var dn_list = new Array();
+            $(".user_dn").each(function () {
+                dn_list.push($(this).text());
+            });
+
+            $.ajax({
+                url: "{{url_for('directory.ldap_check_ad_dn')}}",
+                async: true,
+                type: "POST",
+                dataType: 'json',
+                data: {dn_list: dn_list},
+                traditional: true,
+                success: function (data) {
+                    $('.ldap_check').ready(function () {
+                        $("tbody tr").each(function () {
+                            var dn = $(this).find(".user_dn").text();
+                            if (data[dn]) {
+                                if (data[dn]["openldap"]) {
+                                    $(this).find(".ldap_status").text("Y");
+                                    $(this).find(".ldap_status").addClass("label-success");
+                                } else {
+                                    $(this).find(".ldap_status").text("N");
+                                    $(this).find(".ldap_status").addClass("label-danger");
+                                }
+
+                            }
+                        });
+                    });
+                }, error: function () {
+                    alert("获取数据失败");
+                }
+            });
+
+        </script>
+
+                    {% endblock %}

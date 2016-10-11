@@ -1,0 +1,335 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}用户列表{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">用户和权限</a>
+            </li>
+            <li class="active">用户管理</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>
+                用户详细配置
+                <small>
+            </h1>
+        </div>
+        {% for message in get_flashed_messages() %}
+
+
+        <div>
+            <div class="alert alert-success">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-check"></i>
+                    提示：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+        </div>
+
+        {% endfor %}
+<div class="col-sm-12">
+<h6>
+<div class="col-xs-12 col-sm-6">
+        <div class="profile-user-info profile-user-info-striped">
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 真实姓名</div>
+
+                <div class="profile-info-value">
+                    <span>{{ object.sn }}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 帐号</div>
+
+                <div class="profile-info-value">
+                    <span>{{ object.cn }}</span>
+                </div>
+            </div>
+            {% if object.depart != 'aicaimail' %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 帐号状态 </div>
+
+                <div class="profile-info-value">
+                    {% if object.status == 0 %}
+                                  <span class="label label-sm label-success" >
+                                    &nbsp;&nbsp;正  &nbsp;&nbsp;常&nbsp;&nbsp;
+                                        </span>
+                                  {% else %}
+                                  <span class="label label-sm label-danger" >
+                                    &nbsp;&nbsp;停  &nbsp;&nbsp;用&nbsp;&nbsp;
+                                        </span>
+                                  {% endif %}
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 手机号码</div>
+
+                <div class="profile-info-value">
+                    <span><a href="">{{ object.mobile }}</a></span>
+                </div>
+            </div>
+            {% endif %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 邮箱地址</div>
+
+                <div class="profile-info-value">
+                    <span>{{ object.mail }}</span>
+                </div>
+            </div>
+
+            {% if object.depart != 'aicaimail' %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 所属部门</div>
+
+                <div class="profile-info-value">
+                    <span><a href="{{ url_for('group.info', group_id=parent_group.id) }}">{{ object.depart }}</a></span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> UIDNumber</div>
+
+                <div class="profile-info-value">
+                    <span>{{ object.uidnumber }}</span>
+                </div>
+            </div>
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> VPN地址</div>
+
+                <div class="profile-info-value">
+                    <span>{{ object.iphostnumber }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 密码永不过期 </div>
+
+                <div class="profile-info-value">
+                    {% if object.pwd_never_outdate == 1 %}
+                                  <button class="label label-sm label-warning" onClick='location="{{ url_for('user.passwd_never_outdate',account=object.cn) }}"'>
+                                    &nbsp;&nbsp;是&nbsp;&nbsp;
+                                        </button>
+                                  {% else %}
+                                  <button class="label label-sm label-info" onClick='location="{{ url_for('user.passwd_never_outdate',account=object.cn) }}"'>
+                                    &nbsp;&nbsp;否&nbsp;&nbsp;
+                                        </button>
+                                  {% endif %}
+                </div>
+            </div>
+            {% if object.last_login_ip %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 登录IP/时间</div>
+
+                <div class="profile-info-value">
+                    <span>{{ object.last_login_ip }}/{{ object.last_login_time }}</span>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if object.pwd_change_time %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 密码修改时间</div>
+
+                <div class="profile-info-value">
+                    <span>{{ object.pwd_change_time }}</span>
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> DN</div>
+
+                <div class="profile-info-value">
+                    <span>{{ object.dn }}</span>
+                </div>
+            </div>
+
+            {% if object.depart != 'aicaimail' %}
+            <div class="profile-info-row">
+                <div class="profile-info-name"> JIRA/WIKI权限</div>
+                {% for perm_cn in perm %}
+                <div class="profile-info-value">
+                    <form action="{{ url_for('user.perm_remove_user') }}" method="post" name="pmdel">
+                        {{ form.csrf_token }}
+			<span><a href="{{ url_for('perm.info', perm_id=perm_cn.id) }}">{{ perm_cn.cn }}</a>
+                <input type="hidden" name="user_dn" value="{{ object.dn }}">
+                <input type="hidden" name="user_cn" value="{{ object.cn }}">
+                <input type="hidden" name="del_perm" value="{{ perm_cn[0] }}"><button type="submit"
+                                                                                      class="btn btn-minier btn-danger">
+                    删除
+                </button>
+                                        </span></form>
+                </div>
+                {% endfor %}
+
+            </div>
+            {% endif %}
+            <div class="space-4"></div>
+
+   </div>
+   </div>
+</h6>
+    <div class="col-xs-12 col-sm-6">
+    <div class="tabbable">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#passwd" data-toggle="tab">
+                    密码
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="passwd">
+                <div class="widget-box transparent">
+
+
+                    <div class="widget-body">
+                        <div class="widget-main padding-12">
+                            <div id="profile-feed-2" class="profile-feed">
+                                <label for="form-field-3" class="col-sm-3 control-label no-padding-right"> 修改用户密码 </label>
+                                <div class="row">
+                                <div class="col-xs-12">
+                                    <form role="form" action="{{ url_for('user.passwd_change') }}" class="form-horizontal" method='post'>
+                                        {{passwd_form.hidden_tag()}} {{ passwd_form.csrf_token }}{{ passwd_form.dn }}
+
+                                         <div class="form-group">
+                                                <label for="form-field-3" class="col-sm-3 control-label no-padding-right"> 密码 </label>
+
+                                                <div class="col-sm-9">
+                                                 {{ passwd_form.password1(type="password",class_="col-xs-10 col-sm-8", id="form-field-3", placeholder="请输入密码") }}
+                                                 <span class="help-inline col-xs-12 col-sm-7">
+                                                    {% for error in passwd_form.errors.password1 %}
+                                                    <span style="color: red;" class="middle">{{error}}</span>
+                                                    {% endfor %}
+                                                 </span>
+                                                </div>
+                                            </div>
+
+                                         <div class="space-4"></div>
+
+                                         <div class="form-group">
+                                                <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> 重复密码 </label>
+
+                                                <div class="col-sm-9">
+                                                 {{ passwd_form.password2(type="password",class_="col-xs-10 col-sm-8", id="form-field-4", placeholder="请重复输入密码") }}
+                                                 <span class="help-inline col-xs-12 col-sm-7">
+                                                    {% for error in passwd_form.errors.password2 %}
+                                                    <span style="color: red;" class="middle">{{error}}</span>
+                                                    {% endfor %}
+                                                 </span>
+                                                </div>
+                                            </div>
+
+                                         <div class="space-4"></div>
+
+                                         <div class="form-group">
+                                                <label for="form-field-4" class="col-sm-12 control-label no-padding-right"> 注：密码需包含至少各一个大小写字母和数字，长度8-20位！</label>
+
+                                                <div class="col-sm-9">
+                                                </div>
+                                            </div>
+
+                                         <div class="space-4"></div>
+
+
+                                            <div class="clearfix form-actions">
+                                                <div class="col-md-offset-3 col-md-9">
+                                                    <input type="submit" value="修改" class="btn btn-info" />
+                                                </div>
+                                            </div>
+
+
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+         </div>
+        <div class="col-xs-12 col-sm-12">
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="button" class="btn btn-info" onclick="javascript:history.go(-1);">
+                    <i class="icon-ok bigger-110"></i>
+                    返回
+                </button>
+                <button class="btn btn-warning" onclick="return checkDisable()">
+                    <i class="fa fa-close bigger-110"></i>
+                    停用帐号
+                </button>
+                <button class="btn btn-danger" onclick="return checkDelete()">
+                    <i class="fa fa-trash bigger-110"></i>
+                    删除用户
+                </button>
+            </div>
+            </div>
+            </div>
+
+        </div>
+
+<script src="/static/js/jquery-2.0.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+
+
+            <script type="text/javascript">
+                function checkDisable() {
+                    if (window.confirm("停用帐号后，用户只能通过自助平台激活帐号才能继续使用，你确定要继续停用帐号:{{ object.cn }}?")) {
+                        top.location = '{{ url_for('user.user_disable',account=object.cn) }}';
+                    }
+                    return false;
+                }
+
+                function checkDelete() {
+                    if (window.confirm("你确定要删除用户:{{ object.sn }}?")) {
+                        top.location = '{{ url_for('user.del_account',account=object.cn) }}';
+                    }
+                    return false;
+                }
+            </script>
+
+
+            {% endblock %}

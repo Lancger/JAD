@@ -1,0 +1,420 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+ 
+{% block content %}
+<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="/">概况</a>
+							</li>
+						</ul><!-- .breadcrumb -->
+
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<div class="page-content">
+						<div class="page-header">
+							<h1>
+								概况
+								<small>
+									<i class="icon-double-angle-right"></i>
+									 查看
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="alert alert-block alert-success">
+									<button type="button" class="close" data-dismiss="alert">
+										<i class="icon-remove"></i>
+									</button>
+
+									<i class="icon-ok green"></i>
+
+									欢迎使用
+									<strong class="green">
+										AUD - 2.0网站自动发布系统
+									</strong>
+									,在此可以方便快捷的更新您的网站项目.
+								</div>
+
+          <div class="row">
+          <div class="col-lg-3">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa-cube fa-5x"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading"><h4>{{ count_dic.apps_count }}</h4></p>
+                    <p class="announcement-text"><h4>项目数</h4></p>
+                  </div>
+                </div>
+              </div>
+              <a href="/l_apps">
+                <div class="panel-footer announcement-bottom">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      查看所有
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <i class="fa fa-arrow-circle-right fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+            <div class="col-lg-3">
+            <div class="panel panel-warning">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa-cubes fa-5x"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading"><h4>{{ count_dic.sites_count }}</h4></p>
+                    <p class="announcement-text"><h4>业务数</h4></p>
+                  </div>
+                </div>
+              </div>
+              <a href="/l_sites">
+                <div class="panel-footer announcement-bottom">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      查看所有
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <i class="fa fa-arrow-circle-right fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="panel panel-danger">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa-tasks fa-5x"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading"><h4>{{ count_dic.servers_count }}</h4></p>
+                    <p class="announcement-text"><h4>服务器数</h4></p>
+                  </div>
+                </div>
+              </div>
+              <a href="/l_servers">
+                <div class="panel-footer announcement-bottom">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      查看所有
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <i class="fa fa-arrow-circle-right fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa-upload fa-5x"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading"><h4>{{ count_dic.update_count }}</h4></p>
+                    <p class="announcement-text"><h4>更新总数</h4></p>
+                  </div>
+                </div>
+              </div>
+              <a href="/deploy_his">
+                <div class="panel-footer announcement-bottom">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      查看所有
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <i class="fa fa-arrow-circle-right fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> 更新统计(近一个月)</h3>
+              </div>
+              <div class="panel-body">
+                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                <div id="main" style="height:400px"></div>
+                <!-- ECharts单文件引入 -->
+                <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+                <script type="text/javascript">
+                    // 路径配置
+                    require.config({
+                        paths: {
+                            echarts: 'http://echarts.baidu.com/build/dist'
+                        }
+                    });
+
+                    // 使用
+                    require(
+                        [
+                            'echarts',
+                            'echarts/chart/line',
+                            'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+                        ],
+                        function (ec) {
+                            // 基于准备好的dom，初始化echarts图表
+                            var myChart = ec.init(document.getElementById('main'));
+
+                            var option = {
+                                tooltip : {
+                                    trigger: 'axis'
+                                },
+                                legend: {
+                                    data:['增量更新/回滚','整站更新/回滚']
+                                },
+                                toolbox: {
+                                    show : true,
+                                    feature : {
+                                        mark : {show: true},
+                                        dataView : {show: true, readOnly: false},
+                                        magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                        restore : {show: true},
+                                        saveAsImage : {show: true}
+                                    }
+                                },
+                                calculable : true,
+                                xAxis : [
+                                    {
+                                        type : 'category',
+                                        boundaryGap : false,
+                                        data : [{% for day in senven_day_list[::-1] %} "{{ day }}", {% endfor %}]
+                                    }
+                                ],
+                                yAxis : [
+                                    {
+                                        type : 'value'
+                                    }
+                                ],
+                                series : [
+                                    {
+                                        name:'增量更新/回滚',
+                                        type:'line',
+                                        stack: '总量',
+                                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                        data:[{% for day in senven_day_list[::-1] %} "{{ incre_update_dict.get(day,0) }}", {% endfor %}]
+                                    },
+                                    {
+                                        name:'整站更新/回滚',
+                                        type:'line',
+                                        stack: '总量',
+                                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                        data:[{% for day in senven_day_list[::-1] %} "{{ full_update_dict.get(day,0) }}", {% endfor %}]
+                                    }
+                                ]
+                            };
+
+
+                            // 为echarts对象加载数据
+                            myChart.setOption(option);
+                        }
+                    );
+    </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+            <div class="row-fluid">
+                        <div class="span12">
+                            <div class="tabbable">
+                                <ul id="mainTab" class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#mbox_top" data-toggle="tab">
+                                            <i class="icon-list bigger-110"></i>
+                                            最近10次更新
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#mail_queue" data-toggle="tab">
+                                            <i class="fa fa-cube"></i>
+                                            项目更新次数Top10
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#change_pwd" data-toggle="tab">
+                                            <i class="fa fa-user"></i>
+                                            发起人更新次数Top10
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <!-- 收发量统计 -->
+                                    <div class="tab-pane in active" id="mbox_top">
+                                        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                               <caption></caption>
+                                               <thead>
+                                                   <tr>
+                                                        <th>更新批次</th>
+                                                        <th>方式</th>
+                                                        <th>环境</th>
+                                                        <th>发起人</th>
+                                                        <th>创建时间</th>
+                                                        <th>完成时间</th>
+                                                        <th>状态</th>
+                                                    </tr>
+                                               </thead>
+
+                                              <tbody>
+                                                  {% for R in update_list %}
+                                                  <tr>
+                                                      <td><a href="{{ url_for('deploy.deploygo', batch_no = R.batch_no)}}">{{R.batch_no}}</a></td>
+
+                                                      {% if R.type in (2,3) %}
+                                                      <td><span class="badge badge-pink mail-tag"></span>{{DEPLOY_TYPE[R.type]}}</td>
+                                                      {% else %}
+                                                      <td><span class="badge badge-success mail-tag"></span>{{DEPLOY_TYPE[R.type]}}</td>
+                                                      {% endif %}
+
+                                                      <td>{{APP_ENV[R.env]}}</td>
+                                                      <td><a href="{{ url_for('deploy.deploy_his', account = R.launcher)}}">{{R.username}}</a></td>
+                                                      <td>{{R.create_time}}</td>
+                                                      <td>{{R.finish_time}}</td>
+
+                                                      {% if R.status in (1,5,6) %}
+                                                      <td><span class="label label-danger"><i class="icon-warning-sign bigger-120"></i>{{DEPLOY_STATUS[R.status]}}</span></td>
+                                                      {% elif R.status == 4 %}
+                                                      <td><span class="label label-success"><i class="icon-ok"></i>{{DEPLOY_STATUS[R.status]}}</span></td>
+                                                      {% else %}
+                                                      <td><span class="label label-purple">{{DEPLOY_STATUS[R.status]}}...</span></td>
+                                                      {% endif%}
+                                                  </tr>
+                                                  {% endfor %}
+                                              </tbody>
+                                        </table>
+
+
+                                    </div><!-- End mbox_top tab -->
+
+                                    <!-- 邮件队列 -->
+                                    <div class="tab-pane" id="mail_queue">
+                                       <!-- 接收前10 -->
+                                        <div class="span6">
+                                        <div class="widget-box transparent">
+
+                                        <div class="widget-body">
+                                        <div class="widget-main no-padding">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="thin-border-bottom">
+                                                <tr>
+
+                                                    <th class="span6">
+                                                        <i class="icon-caret-right blue"></i>
+                                                        项目
+                                                    </th>
+                                                    <th>
+                                                        <i class="icon-caret-right blue"></i>
+                                                        更新次数
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for app in app_update_top10%}
+                                            <tr>
+                                                <td><i class="btn btn-minier btn-success fa fa-cube"></i>&nbsp;&nbsp;<a href="{{ url_for('self.appdetail', app_name = app.app_name)}}">{{ app.app_name }}</a> </td>
+                                                <td><span class="badge badge-danger">{{ app.count }}</span></td>
+                                            </tr>
+                                            {% endfor %}
+
+
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div><!-- End Span6-->
+                                    </div>
+
+                                    <!-- 修改密码 -->
+                                    <div class="tab-pane" id="change_pwd">
+                                        <!-- 接收前10 -->
+                                        <div class="span6">
+                                        <div class="widget-box transparent">
+                                        <div class="widget-body">
+                                        <div class="widget-main no-padding">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="thin-border-bottom">
+                                                <tr>
+                                                    <th class="span6">
+                                                        <i class="icon-caret-right blue"></i>
+                                                        更新发起人
+                                                    </th>
+                                                    <th>
+                                                        <i class="icon-caret-right blue"></i>
+                                                        更新次数
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for app in app_launcher_top10 %}
+                                            <tr>
+                                                <td><i class="btn btn-minier btn-success icon-user"></i>&nbsp;&nbsp;<a href="{{ url_for('deploy.deploy_his', account = app.launcher)}}">{{ app.username }} </a></td>
+                                                <td><span class="badge badge-danger">{{ app.count }}</span></td>
+                                            </tr>
+                                            {% endfor %}
+
+
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div><!-- End Span6-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+
+{% endblock %}

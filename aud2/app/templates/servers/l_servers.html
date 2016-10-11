@@ -1,0 +1,132 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}服务器{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">常用查询</a>
+            </li>
+            <li class="active">服务器查询</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1>
+                            服务器查询
+                            <small>
+                        </h1>
+                    </div>
+                    <h6>
+
+                    <div class="table-header">
+                        当前共有<span class="badge badge-danger">{{total}}</span>台服务器
+                    </div>
+                        <div class="table-responsive">
+                            <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="nav-search" class="nav-search">
+                                            <form class="form-search" method='post'>
+                                                <span class="input-icon">
+                                                    {{ form.s_content(id="nav-search-input", class_="nav-search-input", type="text", placeholder="搜索服务器") }}
+                                                <i class="icon-search nav-search-icon"></i>
+                                                </span>{{ form.s_select }}
+                                                {{form.csrf_token}}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                    <caption></caption>
+                                    <thead>
+                                    <tr>
+                                        <th>服务器名</th>
+                                        <th>IP地址</th>
+                                        <th>环境</th>
+                                        <th>位置</th>
+                                        <th>类型</th>
+                                        <th>配置</th>
+                                        <th>状态</th>
+                                        <th>部署项目</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for R in object_list %}
+                                    <tr>
+                                        <td><p><a
+                                                href="{{ url_for('servers.serverdetail', ip = R.inner_ip)}}">{{R.server_name}}</a>
+                                        </p>{{R.desc}}
+                                        </td>
+                                        <td><p>{{R.inner_ip}}(内网)</p> {% if R.internet_ip %}{{R.internet_ip}}<span
+                                                style="color: red;" class="middle">(公网)</span> {% endif %}
+                                        </td>
+                                        <td>{{APP_ENV[R.env]}}</td>
+                                        <td> {{SERVER_LOCATION[R.location] }}</td>
+                                        <td>{{SERVER_TYPE[R.type]}}</td>
+                                        <td><p>CPU： {{R.cpu}}核 内存：{{R.ram}}GB</p>数据盘：{{R.hdd}}GB</td>
+                                        {% if R.status == 1 %}
+                                        <td>
+                                            <button class="btn btn-xs btn-success">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        </td>
+                                        {% else %}
+                                        <td>
+                                            <button class="btn btn-xs btn-danger">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                        {% endif %}
+                                        <td>{% for app in R.app_list.split(',') %}
+                                            <p><a href="{{ url_for('self.appdetail', app_name = app.encode('utf8'))}}">{{app}}</a>
+                                            </p>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                {% if pagination %}
+                                <tr>
+                                    <div class="dataTables_paginate paging_bootstrap">
+                                        {{ macros.pagination_widget(pagination, '.l_servers') }}
+                                    </div>
+                                </tr>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </h6>
+
+                    {% endblock %}

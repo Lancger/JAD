@@ -1,0 +1,141 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}编辑应用类别{% endblock %}
+ 
+{% block content %}
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">项目管理</a>
+							</li>
+							<li class="active">编辑类别站点</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+    <div class="page-content">
+    <div class="page-header">
+        <h1>
+        编辑类别站点
+        <small>
+        </h1>
+    </div>
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" method='post'>
+            {{form.hidden_tag()}}
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 所属站点 </label>
+
+    			<div class="col-sm-9">
+                 {{ form.site_name(type="text", class_="col-xs-10 col-sm-4", placeholder="所属站点,无则填写独立服务", id="form-field-1") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.server_name %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+            		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 所属业务 </label>
+
+    			<div class="col-sm-9">
+                 {{ form.business_id(type="text", class_="col-xs-10 col-sm-4", id="form-field-1") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.business_id %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> 提交</button>
+                        <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                        <a href="javascript:history.go(-1);" class="btn">
+                                                    <i class="icon-arrow-left"></i>
+                                                    <span>返回上页</span>
+                                                    </a>
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+<div class="row">
+<div class="page-content">
+    <div class="page-header">
+        <h1>已部署项目和服务器
+        <small>
+        </h1>
+    </div>
+<div class="row">
+<h6>
+<div class="table-header">
+	项目部署情况(项目:<span class="badge badge-danger">{{total_app}}</span>,Tomcat实例:<span class="badge badge-danger">{{total_instance}}</span>,服务器:<span class="badge badge-danger">{{total_node}}</span>)
+</div>
+
+<div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+    <div class="row">
+     <div class="col-sm-6">
+         <div id="sample-table-2_length" class="dataTables_length">
+         </div>
+     </div>
+     <div class="col-sm-6">
+         <div class="dataTables_filter" id="sample-table-2_filter">
+         </div>
+     </div>
+
+    </div>
+
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+           <caption></caption>
+           <thead>
+               <tr>
+                <th>项目</th>
+                <th>部署节点</th>
+                </tr>
+           </thead>
+
+          <tbody>
+              {% for R in object_list %}
+              <tr>
+                  <td><a href="{{ url_for('self.editapp', app_name = R.app_name)}}">{{R.app_name}}</a></td>
+                  <td>{% for node in R.node_list.split(',') %}
+                      <p><a href="{{ url_for('servers.editserver', ip = node)}}">{{node}}</a></p>
+                  {% endfor %}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+</h6>
+</div>
+</div>
+{% endblock %}

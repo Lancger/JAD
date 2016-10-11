@@ -1,0 +1,170 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block head_more %}
+<link rel="stylesheet" href="/static/css/bootstrap-duallistbox.css" />
+{% endblock %}
+
+{% block title %}用户列表{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">用户和权限</a>
+            </li>
+            <li class="active">用户权限组</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+ <div class="page-content">
+    <div class="page-header">
+        <h1>
+        组成员: {{ perm_name }}
+        <small>
+        </h1>
+    </div>
+
+     {% for message in get_flashed_messages() %}
+
+
+        <div>
+            <div class="alert alert-success">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-check"></i>
+                    提示：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+        </div>
+
+        {% endfor %}
+<div class="col-xs-12">
+    <h6>
+<div class="row">
+    <div class="col-sm-6">
+        <div id="sample-table-2_length" class="dataTables_length">
+            <p><button class="btn btn-sm btn-warning" onclick="javascript:top.location='{{ url_for('perm.check',id=perm_group_id) }}';">
+                <i class="fa fa-stethoscope"></i>
+                检查权限组</button></p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="dataTables_filter" id="sample-table-2_filter">
+        </div>
+    </div>
+
+</div>
+    <div class="table-header">
+	权限组成员
+</div>
+
+     <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+         <caption></caption>
+         <thead>
+         <tr>
+             <th>姓名</th>
+             <th>帐号</th>
+             <th>DN</th>
+             <th>操作</th>
+         </tr>
+         </thead>
+
+
+         <tbody>
+         {% for R in object_list %}
+         <tr>
+             <td>
+                 {% if R.cn %}
+                 <a href="{{ url_for('user.info',account=R.cn) }}">{{R.sn}}</a>
+                 {% else %}
+                     {{R.sn}}
+                 {% endif %}
+             </td>
+             <td>{{R.cn}}</td>
+             <td>{% if R.check_status ==1 %}
+                 <i class="icon-warning-sign red bigger-130"></i>
+                 {% endif %}
+                 {{R.uniquemember}}
+             </td>
+             <td><p class="operations">
+
+                 <form action="{{ url_for('perm.user_del') }}" method="post" name="pmdel">
+                     {{ form.csrf_token }}
+
+                     <input type="hidden" name="user_dn" value={{ R.uniquemember }} >
+                     <input type="hidden" name="perm_id" value={{ R.perm_id }} >
+                     <input type="hidden" name="submit_source" value="permgroupdetail">
+                     <button type="submit" class="btn btn-minier btn-danger">删除</button>
+                 </form>
+                 </p></td>
+         </tr>
+         {% endfor %}
+
+
+         </tbody>
+
+     </table>
+    </h6>
+     <table>
+         <tbody>
+         <tr>
+               <td><form method="post">
+                {{form.hidden_tag()}} {{ form.csrf_token }}
+                <div class="profile-info-value">
+                {{ form.user }} <input type="submit" value="添加用户"></div>
+            </form></td>
+           </tr>
+         </tbody>
+     </table>
+
+<div class="col-xs-12 col-sm-12">
+     <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="button" class="btn btn-info" onclick="javascript:history.go(-1);">
+                    <i class="icon-ok bigger-110"></i>
+                    返回
+                </button>
+                <button class="btn btn-danger" onclick="return checkDelete()">
+                    <i class="icon-bolt bigger-110"></i>
+                    删除该权限组
+                </button>
+            </div>
+            </div>
+
+    </div>
+     </div>
+     </div>
+<script type="text/javascript">
+function checkDelete() {
+    if (window.confirm("你确定要删除该用户权限组:{{ perm_name }}?")) {
+      top.location='{{ url_for('perm.perm_group_del',id=perm_group_id)}}';
+    }
+    return false;
+   }
+</script>
+
+
+                    {% endblock %}

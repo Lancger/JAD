@@ -1,0 +1,183 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}增加应用{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">项目管理</a>
+							</li>
+							<li class="active">添加新项目</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        添加新项目
+        <small>
+        </h1>
+    </div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" action="addapp" method='post' name="addapp">
+            {{form.hidden_tag()}}
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 项目名称 </label>
+
+    			<div class="col-sm-9">
+                 {{ form.app_name(type="text", class_="col-xs-10 col-sm-3", placeholder="项目名称", id="form-field-1") }}
+                 <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.app_name %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+             <div class="form-group">
+
+                 <label for="form-field-6" class="col-sm-3 control-label no-padding-right"> 所属站点类别 </label>
+
+                    <div class="col-sm-8">
+                     {{ form.site(class_="col-xs-10 col-sm-2", placeholder="所属站点", id="form-field-7") }}
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-9" class="col-sm-3 control-label no-padding-right"> 项目描述 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.desc(class_="col-xs-10 col-sm-6", placeholder="项目描述", id="form-field-9") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.desc %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> 程序部署路径 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.app_path(type="text", class_="col-xs-10 col-sm-6", placeholder="程序部署路径", id="form-field-4") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.app_path %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-4" class="col-sm-3 control-label no-padding-right">  业务类型  </label>
+
+                 <div class="col-sm-8">
+                     {{ form.business_id(type="text", class_="col-xs-10 col-sm-2", placeholder="业务类型", id="form-field-6") }}
+
+
+                        <label for="form-field-7" class="col-sm-3 control-label no-padding-right"> RSYNC路径名称&nbsp;&nbsp;&nbsp; </label>
+                     {{ form.rsync_path_name(type="text", class_="col-xs-10 col-sm-2", placeholder="RSYNC路径名称", id="form-field-7") }}
+
+                    </div>
+
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-5" class="col-sm-3 control-label no-padding-right"> Tomcat部署路径 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.tomcat_path(type="text", class_="col-xs-10 col-sm-6", placeholder="Tomcat部署路径", id="form-field-5") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.tomcat_path %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-6" class="col-sm-3 control-label no-padding-right"> Tomcat服务端口 </label>
+
+                    <div class="col-sm-8">
+                     {{ form.port(type="text", class_="col-xs-10 col-sm-2", placeholder="Tomcat服务端口", id="form-field-6") }}
+
+
+                        <label for="form-field-7" class="col-sm-3 control-label no-padding-right"> Tomcat关闭端口&nbsp;&nbsp;&nbsp; </label>
+                     {{ form.shutdown_port(type="text", class_="col-xs-10 col-sm-2", placeholder="Tomcat关闭端口", id="form-field-7") }}
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> SVN地址 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.svn_url(type="text", class_="col-xs-10 col-sm-6", placeholder="SVN地址", id="form-field-4") }}
+                     <span class="help-inline col-xs-12 col-sm-7">
+                        {% for error in form.errors.svn_url %}
+                        <span style="color: red;" class="middle">{{error}}</span>
+                        {% endfor %}
+                     </span>
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> 提交</button>
+                        <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                        <a href="javascript:history.go(-1);" class="btn">
+                                                    <i class="icon-arrow-left"></i>
+                                                    <span>返回上页</span>
+                                                    </a>
+
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

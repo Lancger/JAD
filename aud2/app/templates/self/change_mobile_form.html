@@ -1,0 +1,30 @@
+{% extends "self/base.html" %}
+
+{% block title %}
+    用户中心
+{% endblock %}
+
+{% block content %}
+<div class="col-xs-12">
+    <form role="form" class="form-horizontal" method="post" action="">
+        {{mobile_change_form.hidden_tag()}}{{ mobile_change_form.csrf_token }}{{ mobile_change_form.dn }}
+        <div class="form-group">
+            <label for="id_username" class="control-label col-xs-2">手机号</label>
+
+            <div class="col-xs-3">
+                {{ mobile_change_form.mobile(type="text",class_="form-control", maxlength="11", placeholder="手机号") }}
+                {% for error in mobile_change_form.errors.mobile %} <span style="color: red;" class="help-inline">[{{error}}]</span>{% endfor %}
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <input type="submit" value="修改" id="id_change_mobile" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

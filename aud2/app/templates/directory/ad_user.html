@@ -1,0 +1,153 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}用户列表{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">域控(AD)管理</a>
+            </li>
+            <li class="active">域控(AD)用户</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+ <div class="page-content">
+    <div class="page-header">
+        <h1>
+        AD用户详情
+        <small>
+        </h1>
+    </div>
+     {% for message in get_flashed_messages() %}
+
+
+    <div>
+            <div class="alert alert-success">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-check"></i>
+                    提示：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+        </div>
+
+            {% endfor %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" method='post'>
+            {{form.hidden_tag()}}
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 真实姓名 </label>
+
+    			<div class="col-sm-9">
+                 <input class="col-xs-10 col-sm-5" disabled="disabled" id="form-field-1" name="name" placeholder="真实姓名" type="text" value="{{ad_user[0][1]['displayName'][0]}}">
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+         <div class="form-group">
+                    <label for="form-field-2" class="col-sm-3 control-label no-padding-right"> 帐号 </label>
+
+                    <div class="col-sm-9">
+                      <input class="col-xs-10 col-sm-5" disabled="disabled" id="form-field-1" name="name" placeholder="真实姓名" type="text" value="{{ad_user[0][1]['sAMAccountName'][0]}}">
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-3" class="col-sm-3 control-label no-padding-right"> 所在部门 </label>
+
+                    <div class="col-sm-9">
+                     {{ form.depart(type="text", class_="col-xs-10 col-sm-5", placeholder="所在部门", id="form-field-3", disabled="disabled") }}
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> DN </label>
+
+                    <div class="col-sm-9">
+                     {{ form.dn(type="text", class_="col-xs-10 col-sm-7", placeholder="所在部门", disabled="disabled", id="form-field-3") }}
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+
+            <div class="clearfix form-actions">
+
+                <div class="col-md-offset-3 col-md-9">
+
+                    <a type="button" class="btn btn-pink" onclick="javascript:history.go(-1);">
+                        <i class=" icon-arrow-left"></i>
+                        <span>返回上页</span>
+                    </a>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="/static/js/chosen.jquery.min.js"></script>
+
+
+<script type="text/javascript">
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+        });
+
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+            $(".chosen-choices li input").addClass("height-auto");
+        });
+
+        jQuery(function ($) {
+            $(".chosen-select").chosen();
+        });
+
+        $(document).ready(function () {
+            $("#change-passwd-switch").change(function () {
+                $("#passwd1").toggle();
+                $("#passwd2").toggle();
+            });
+        });
+    </script>
+
+
+
+
+
+                    {% endblock %}

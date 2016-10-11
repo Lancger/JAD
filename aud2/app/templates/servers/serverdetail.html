@@ -1,0 +1,165 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}增加应用{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="#">常用查询</a>
+							</li>
+							<li class="active">服务器详情</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        服务器详情
+        <small>
+        </h1>
+    </div>
+<div class="widget-body">
+    <div class="widget-main">
+        <h6>
+        <div class="profile-user-info profile-user-info-striped">
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 服务器名称 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.server_name }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 服务器类型 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ SERVER_TYPE[obj.type] }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 内网IP </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.inner_ip }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 公网IP </div>
+
+                <div class="profile-info-value">
+                    {% if obj.internet_ip%}
+                    <span>{{ obj.internet_ip }}</span>
+                    {% else %}
+                    <span>None</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 环境 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ APP_ENV[obj.env] }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 所在位置 </div>
+
+                <div class="profile-info-value">
+                    <span>{{ SERVER_LOCATION[obj.location] }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> CPU(核) </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.cpu }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 内存(GB) </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.ram }}</span>
+                </div>
+            </div>
+            <div class="profile-info-row">
+                <div class="profile-info-name"> 硬盘大小(GB) </div>
+
+                <div class="profile-info-value">
+                    <span>{{ obj.hdd }}</span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+<div class="page-content">
+    <div class="page-header">
+        <h1>服务器已部署项目
+        <small>
+        </h1>
+    </div>
+<div class="row">
+<h6>
+<div class="table-header">
+	当前已部署项目数量：<span class="badge badge-danger">{{total}}</span>
+</div>
+
+<div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+    <div class="row">
+     <div class="col-sm-6">
+         <div id="sample-table-2_length" class="dataTables_length">
+         </div>
+     </div>
+     <div class="col-sm-6">
+         <div class="dataTables_filter" id="sample-table-2_filter">
+         </div>
+     </div>
+
+    </div>
+
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+           <caption></caption>
+           <thead>
+               <tr>
+                <th>项目</th>
+                </tr>
+           </thead>
+
+          <tbody>
+              {% for R in object_list %}
+              <tr>
+                  <td><a href="{{ url_for('self.appdetail', app_name = R.app_name)}}">{{R.app_name}}</a></td>
+              </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+</h6>
+</div>
+</div>
+{% endblock %}

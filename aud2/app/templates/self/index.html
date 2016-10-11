@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>员工帐号自助系统</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="/static/js/jquery-2.0.3.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav role="navigation" class="navbar navbar-default">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+
+    <div class="navbar-header">
+
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+
+            <span class="sr-only">Toggle navigation</span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+
+        </button>
+
+        <a href="#" class="navbar-brand">员工帐号自助系统</a>
+
+    </div>
+</nav>
+<div class="container">
+    <div class="container-fluid">
+        <h3 class="page-header">常用自助服务</h2>
+        <div class="row">
+            <div class="col-xs-4">
+                <h3>新员工账号注册/激活</h3>
+                <p>新员工入职后,需要到此激活爱彩员工个人账号,该账号为公司内部使用的统一认证账号,可以用于公司RTX/admin后台/data系统/公司zwc WiFi热点认证/JIRA/wiki知识管理/SSLVPN登陆</p>
+            </div>
+            <div class="col-xs-4">
+                <h3>密码</h3>
+                <p>忘记爱彩员工个人账号登录密码,可以进入重置密码,输入账户名(例如邮箱名为:san.zhang@aicai.com,<strong>san.zhang</strong>就是账户名)</p>
+            </div>
+            <div class="col-xs-4">
+                <h3>修改(RTX个人资料)手机号</h3>
+                <p>手机号码已变更或失效,请及时到此进行变更,以保证RTX个人资料中的手机号是最新的</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <a class="btn btn-success" href="{{ url_for('self.account_activate') }}">点击进入&raquo;</a>
+            </div>
+            <div class="col-xs-4">
+                <a class="btn btn-success" href="{{ url_for('self.account_activate') }}">重置密码&raquo;</a>
+                <a class="btn btn-success" href="{{ url_for('self.passwd_change') }}">修改密码&raquo;</a>
+            </div>
+            <div class="col-xs-4">
+                <a class="btn btn-success" href="{{ url_for('self.mobile_change') }}">点击进入&raquo;</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <footer>
+                    <p>&copy; Copyright 2007-2015 新浪爱彩-系统运维部</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block title %}业务{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">常用查询</a>
+            </li>
+            <li class="active">业务查询</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1>
+                            业务查询
+                            <small>
+                        </h1>
+                    </div>
+                    <h6>
+
+                    <div class="table-header">
+                        当前共有<span class="badge badge-danger">{{total}}</span>种业务
+                    </div>
+                        <div class="table-responsive">
+                            <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="nav-search" class="nav-search">
+                                            <form class="form-search" method='post'>
+                                                <span class="input-icon">
+                                                    {{ form.s_content(id="nav-search-input", class_="nav-search-input", type="text", placeholder="搜索业务") }}
+                                                <i class="icon-search nav-search-icon"></i>
+                                                {{form.csrf_token}}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                    <caption></caption>
+                                    <thead>
+                                    <tr>
+                                        <th>业务类别</th>
+                                        <th>业务名称</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for R in object_list %}
+                                    <tr>
+                                        <td>{{R.id}}</td>
+                                        <td>{{R.business_name}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                {% if pagination %}
+                                <tr>
+                                    <div class="dataTables_paginate paging_bootstrap">
+                                        {{ macros.pagination_widget(pagination, '.l_business') }}
+                                    </div>
+                                </tr>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </h6>
+
+                    {% endblock %}

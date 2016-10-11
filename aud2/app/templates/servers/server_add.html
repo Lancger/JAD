@@ -1,0 +1,72 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block title %}增加应用{% endblock %}
+ 
+{% block content %}
+
+
+        				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="/">Home</a>
+							</li>
+
+							<li>
+								<a href="/ldapuser">应用管理</a>
+							</li>
+							<li class="active">添加服务器</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+        添加服务器
+        <small>
+        </h1>
+    </div>
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" method='post'>
+            {{form.hidden_tag()}}
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> 选择需要添加的服务器(CMDB) </label>
+
+    			<div class="col-sm-3">
+                 {{ form.server_name(type="text",class_="autosize-transition form-control",style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 260px;") }}
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit"><i class="icon-ok"></i> 提交</button>
+                        <button type="reset" class="btn btn-pink"><i class="icon-undo"> 重置</i></button>
+                        <a href="javascript:history.go(-1);" class="btn">
+                                                    <i class="icon-arrow-left"></i>
+                                                    <span>返回上页</span>
+                                                    </a>
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,359 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% import "macros/_macros.html" as macros %}
+
+{% block head_more %}
+<link rel="stylesheet" href="/static/css/bootstrap-duallistbox.css" />
+{% endblock %}
+
+{% block title %}用户列表{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="#">域控(AD)管理</a>
+            </li>
+            <li class="active">域控(AD)部门/组织</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+ <div class="page-content">
+    <div class="page-header">
+        <h1>
+        AD部门/组(OU)详情
+        <small>
+        </h1>
+    </div>
+     {% for message in get_flashed_messages() %}
+
+
+    <div>
+            <div class="alert alert-success">
+                <button data-dismiss="alert" class="close" type="button">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    <i class="ace-icon fa fa-check"></i>
+                    提示：
+                </strong>
+                {{ message }}
+                <br>
+            </div>
+        </div>
+
+            {% endfor %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form" class="form-horizontal" method='post'>
+            {{form.hidden_tag()}}
+
+    		<div class="form-group">
+    			<label for="form-field-1" class="col-sm-3 control-label no-padding-right"> OU名 </label>
+
+    			<div class="col-sm-9">
+                 <input class="col-xs-10 col-sm-5" disabled="disabled" id="form-field-1" name="name" placeholder="OU名" type="text" value="{{dn.split(',')[0][3:]}}">
+    			</div>
+    		</div>
+
+    		<div class="space-4"></div>
+
+         <div class="form-group">
+                    <label for="form-field-2" class="col-sm-3 control-label no-padding-right"> 部门组织架构名 </label>
+
+                    <div class="col-sm-9">
+                      <input class="col-xs-10 col-sm-5" disabled="disabled" id="form-field-1" name="name" placeholder="部门组织架构名" type="text" value="{{ '\\'.join(dn.replace('OU=','').split(',')[0:2][::-1]) }}">
+
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> DN </label>
+
+                    <div class="col-sm-9">
+                     {{ form.dn(type="text", class_="col-xs-10 col-sm-7", placeholder="所在部门", id="form-field-3", disabled="disabled") }}
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+             <div class="form-group">
+                    <label for="form-field-4" class="col-sm-3 control-label no-padding-right"> 父部门: </label>
+
+                    <div class="col-sm-9">
+                     <label for="form-field-4" class="col-sm-8"> <a href="{{ url_for('directory.ad_ou', oumd5 = ','.join(form.dn.data.split(',')[1:])|str_md5|safe ) }}">{{ ','.join(form.dn.data.split(',')[1:]) }}</a></label>
+                    </div>
+                </div>
+
+             <div class="space-4"></div>
+
+
+            <div class="form-group">
+
+
+                <h4 class="header smaller lighter blue">
+                    <i class="icon-hand-right"></i>
+                    子部门管理
+                </h4>
+                <h6>
+                    <div class="table-header">
+                        子部门数量：<span class="badge badge-danger">{{member_ou_total}}</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+
+                            <form action="" id="cb_form" class="form" method="post">
+                                <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                    <caption></caption>
+                                    <thead>
+                                    <tr>
+                                        <th>部门名称</th>
+                                        <th>DN</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for R in ad_ou_member_ou %}
+                                    <tr>
+                                        <td><a href="{{ url_for('directory.ad_ou', oumd5 = R['dn']|str_md5|safe ) }}">{{ R['ou'] }}</a>
+                                        </td>
+
+                                        <td>{{ R['dn'] }}</td>
+
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+
+                </h6>
+            </div>
+
+             <div class="space-4"></div>
+
+            <div class="form-group">
+
+
+                <h4 class="header smaller lighter blue">
+                    <i class="icon-hand-right"></i>
+                    部门成员管理
+                </h4>
+                <h6>
+                    <div class="table-header">
+                        用户数量：<span class="badge badge-danger">{{member_user_total}}</span>
+                    </div>
+
+                    <div class="table-responsive">
+                        <div role="grid" class="dataTables_wrapper" id="sample-table-2_wrapper">
+
+                            <form action="{{ url_for('directory.ad_user_batch') }}" id="cb_form" class="form" method="post">
+                                {{form.csrf_token}}
+                                <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                    <caption></caption>
+                                    <thead>
+                                    <tr>
+                                        <th class="center" style="width:20px;">
+                                            <label>
+                                                <input type="checkbox" class="ace">
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </th>
+                                        <th>真实姓名</th>
+                                        <th>帐号</th>
+                                        <th>DN</th>
+                                        <th>帐号检查</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for R in ad_ou_member %}
+                                    <tr>
+                                        <td class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" name="cb" value="{{R['dn']}}">
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </td>
+                                        <td><a href="{{ url_for('directory.ad_user', account = R['sAMAccountName'])}}">{{ R['displayName'] }}</a></td>
+                                        <td>{{ R['sAMAccountName'] }}</td>
+
+                                        <td>{{ R['dn'] }}</td>
+                                        <td>
+                                                                   <table class="ldap_check">
+                                                                       <tbody>
+                                                                       <tr>
+                                                                           <td>LDAP帐号：</td>
+                                                                           <td><span class="label label-sm ldap_status">检查中...</span>
+                                                                           </td>
+                                                                       </tr>
+                                                                       <tr><a class="user_dn" style="display:none">{{ R['dn'] }}</a>
+                                                                       </tr>
+                                                                       </tbody>
+                                                                   </table>
+
+                                                               </td>
+
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <div class="col-xs-12">
+
+                                    <button class="btn btn-danger btn-sm" name="btn" value="del_user" type="submit"
+                                            onclick="return confirm('确定要移除所选用户？')"><i
+                                            class="ace-icon fa fa-trash-o bigger-120"></i> 删除选择用户
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </h6>
+            </div>
+
+             <div class="space-4"></div>
+
+             <div class="space-4"></div>
+            <hr>
+
+            <div class="clearfix form-actions">
+
+                <div class="col-md-offset-3 col-md-9">
+
+                    <a type="button" class="btn btn-pink" onclick="javascript:history.go(-1);">
+                        <i class=" icon-arrow-left"></i>
+                        <span>返回上页</span>
+                    </a>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+<script src="/static/js/jquery-2.0.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.dataTables.min.js"></script>
+<script src="/static/js/jquery.dataTables.bootstrap.js"></script>
+
+<script type="text/javascript">
+    function checkDelete(app_id, node_ip) {
+        if (window.confirm("你确定要删除该节点:" + node_ip + "?")) {
+            top.location = '';
+        }
+        return false;
+    }
+
+    $('table th input:checkbox').on('click', function(){
+        var that = this;
+        $(this).closest('table').find('tr > td:first-child input:checkbox')
+        .each(function(){
+            this.checked = that.checked;
+            $(this).closest('tr').toggleClass('selected');
+        });
+    });
+</script>
+<script src="/static/js/jquery.bootstrap-duallistbox.js"></script>
+<script type="text/javascript">
+    jQuery(function($){
+        // var demo1 = $('.duallistbox').bootstrapDualListbox({infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'});
+        // var container1 = demo1.bootstrapDualListbox('getContainer');
+        // container1.find('.btn').addClass('btn-info btn-bold');
+        // container1.find('.btn').removeClass('btn-white');
+        // container1.find('.glyphicon.glyphicon-arrow-right').attr('class', 'icon-chevron-right');
+        // container1.find('.glyphicon.glyphicon-arrow-left').attr('class', 'icon-chevron-left');
+        $('.duallistbox').ready(function(){
+            var demo1 = $(this).bootstrapDualListbox({infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'});
+            var container1 = demo1.bootstrapDualListbox('getContainer');
+            container1.find('.btn').addClass('btn-info btn-bold');
+            container1.find('.btn').removeClass('btn-white');
+            container1.find('.glyphicon.glyphicon-arrow-right').attr('class', 'icon-chevron-right');
+            container1.find('.glyphicon.glyphicon-arrow-left').attr('class', 'icon-chevron-left');
+            container1.find('.btn.removeall').attr('disabled', 'disabled');
+            container1.find('.btn.moveall').attr('disabled', 'disabled');
+            container1.find('.btn.moveall').attr('disabled', 'disabled');
+        })
+
+    });
+</script>
+
+    <script src="/static/js/jquery-2.0.3.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+
+            var csrftoken = $('meta[name=csrf-token]').attr('content');
+
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                    }
+                }
+            });
+
+            var dn_list = new Array();
+            $(".user_dn").each(function () {
+                dn_list.push($(this).text());
+            });
+
+            $.ajax({
+                url: "{{url_for('directory.ldap_check_ad_dn')}}",
+                async: true,
+                type: "POST",
+                dataType: 'json',
+                data: {dn_list: dn_list},
+                traditional: true,
+                success: function (data) {
+                    $('.ldap_check').ready(function () {
+                        $("tbody tr").each(function () {
+                            var dn = $(this).find(".user_dn").text();
+                            if (data[dn]) {
+                                if (data[dn]["openldap"]) {
+                                    $(this).find(".ldap_status").text("Y");
+                                    $(this).find(".ldap_status").addClass("label-success");
+                                } else {
+                                    $(this).find(".ldap_status").text("N");
+                                    $(this).find(".ldap_status").addClass("label-danger");
+                                }
+
+                            }
+                        });
+                    });
+                }, error: function () {
+                    alert("获取数据失败");
+                }
+            });
+
+        </script>
+
+
+
+
+
+
+                    {% endblock %}
